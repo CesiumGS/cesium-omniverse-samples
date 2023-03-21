@@ -41,7 +41,7 @@ In Vancouver you'll see [Cesium World Terrain](https://cesium.com/platform/cesiu
 
 The tutorial folder contain USD's representing the completed steps of each tutorial found [here](https://cesium.com/learn/omniverse/).
 
-If you want to see the intended outcome of each tutorial, simply open the corresponding USD.  
+If you want to see the intended outcome of each tutorial, simply open the corresponding USD.
 
 ### :green_book:License
 
