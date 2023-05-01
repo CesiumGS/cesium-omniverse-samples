@@ -103,7 +103,7 @@ def CesiumDataPrim "Cesium"
     double cesium:georeferenceOrigin:height = 0
     double cesium:georeferenceOrigin:latitude = 49.2827
     double cesium:georeferenceOrigin:longitude = -123.1207
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxOWM2Yzg4Zi0yMDEzLTQ0N2UtYmU0Mi0yNWE3ZDRhNWNkZWIiLCJpZCI6MjU5LCJpYXQiOjE2NzkzNTY0MzF9.2TSzbyOKl0I6fMfcDb-Q7ari3LGLf-tpLEIBUMOKUM8"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMzAzNDMwMC0yNGZhLTRiYmYtYTljZi0xYzQ4ZTRmNWQ1MzIiLCJpZCI6MjU5LCJpYXQiOjE2ODI5NjE0NDd9.Lj-7HPG3MFNfNbyzitQknlmStwICq7WI0SCUJeNdos0"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
