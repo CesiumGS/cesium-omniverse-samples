@@ -135,7 +135,7 @@ def CesiumDataPrim "Cesium"
     double cesium:georeferenceOrigin:height = 520
     double cesium:georeferenceOrigin:latitude = 47.366233989323355
     double cesium:georeferenceOrigin:longitude = 8.531907374095224
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODE2N2E4Ni0xYzRhLTRiNjUtYTcyMS1mNjJlN2I3ZmI0NDgiLCJpZCI6MjU5LCJpYXQiOjE2ODMyMjEwMDR9.AHMP2KflPTgU-TWgKHyBxMLUCOpbEPxCCaXfRdxBjCQ"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZTA0MDlmYi01Y2RhLTQ0MjQtYjBlOS1kMmZhMzQ0OWRkNGYiLCJpZCI6MjU5LCJpYXQiOjE2ODU2MzExMTF9.y2CrqatkaHKHcj6NIDJ8ioll-tnOi-2CblnzI6iUays"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
@@ -166,6 +166,6 @@ def Xform "Cesium_Tileset" (
     bool cesium:smoothNormals = 0
     uniform token cesium:sourceType = "url"
     bool cesium:suspendUpdate = 0
-    string cesium:url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyB1p4r7ZzvJMOtoec8fzhzKjTnGLln4h0I"
+    string cesium:url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyC2PMYr_ZaMJT5DdZ8WJNYMwB0lDyvx5q8"
 }
 
