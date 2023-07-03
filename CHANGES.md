@@ -1,4 +1,8 @@
-### v0.6.0 - 2023-06-01
+### v0.8.0 - 2023-07-03
+
+- Updates for Cesium for Omniverse v0.8.0
+
+### v0.7.0 - 2023-06-01
 
 - Switched to RTX Real-Time renderer for Google 3D Tiles examples
 - Updates for Cesium for Omniverse v0.7.0

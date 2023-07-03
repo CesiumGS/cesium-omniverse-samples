@@ -289,34 +289,23 @@ def Xform "Environment"
 
 def CesiumDataPrim "Cesium"
 {
-    double cesium:georeferenceOrigin:height = 0
-    double cesium:georeferenceOrigin:latitude = 37.7749
-    double cesium:georeferenceOrigin:longitude = -122.4194
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZTA0MDlmYi01Y2RhLTQ0MjQtYjBlOS1kMmZhMzQ0OWRkNGYiLCJpZCI6MjU5LCJpYXQiOjE2ODU2MzExMTF9.y2CrqatkaHKHcj6NIDJ8ioll-tnOi-2CblnzI6iUays"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiZTg2OGQwOC1mMjZlLTRkYWYtOTRjYS04MDBjYjU1ZWQ4MWYiLCJpZCI6MjU5LCJpYXQiOjE2ODg0MDc0NjV9._JWp1HuCjOKHF8JA88G8nL-Jla7EtbCZwJskjwx0MeY"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
-def Xform "Cesium_World_Terrain" (
-    prepend apiSchemas = ["CesiumTilesetSchemaAPI"]
-)
+def CesiumGeoreferencePrim "CesiumGeoreference"
 {
-    float cesium:culledScreenSpaceError = 64
-    bool cesium:enableFogCulling = 1
-    bool cesium:enableFrustumCulling = 1
-    bool cesium:enforceCulledScreenSpaceError = 1
-    bool cesium:forbidHoles = 0
+    double cesium:georeferenceOrigin:height = 0
+    double cesium:georeferenceOrigin:latitude = 37.7749
+    double cesium:georeferenceOrigin:longitude = -122.4194
+}
+
+def CesiumTilesetPrim "Cesium_World_Terrain"
+{
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1
-    uint cesium:loadingDescendantLimit = 20
-    uint64 cesium:maximumCachedBytes = 536870912
-    float cesium:maximumScreenSpaceError = 16
-    uint cesium:maximumSimultaneousTileLoads = 20
-    bool cesium:preloadAncestors = 1
-    bool cesium:preloadSiblings = 1
-    bool cesium:smoothNormals = 0
-    bool cesium:suspendUpdate = 0
-    string cesium:url
-    token visibility = "inherited"
     double3 xformOp:rotateXYZ = (0, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, -100, 0)
@@ -329,26 +318,12 @@ def Xform "Cesium_World_Terrain" (
     }
 }
 
-def Xform "Cesium_OSM_Buildings" (
-    prepend apiSchemas = ["CesiumTilesetSchemaAPI"]
-)
+def CesiumTilesetPrim "Cesium_OSM_Buildings"
 {
-    float cesium:culledScreenSpaceError = 64
-    bool cesium:enableFogCulling = 1
-    bool cesium:enableFrustumCulling = 1
-    bool cesium:enforceCulledScreenSpaceError = 1
-    bool cesium:forbidHoles = 0
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 96188
-    uint cesium:loadingDescendantLimit = 20
-    uint64 cesium:maximumCachedBytes = 536870912
-    float cesium:maximumScreenSpaceError = 16
-    uint cesium:maximumSimultaneousTileLoads = 20
-    bool cesium:preloadAncestors = 1
-    bool cesium:preloadSiblings = 1
-    bool cesium:smoothNormals = 0
-    bool cesium:suspendUpdate = 0
-    string cesium:url
     token visibility = "invisible"
 }
 
@@ -358,26 +333,12 @@ over "OmniverseKit_Persp"
     float focalLength = 17
 }
 
-def Xform "Aerometrex_San_Francisco_High_Resolution_3D_Model_with_Street_Level_Enhanced_3D_Non_Commercial_Trial_" (
-    prepend apiSchemas = ["CesiumTilesetSchemaAPI"]
-)
+def CesiumTilesetPrim "Aerometrex_San_Francisco_High_Resolution_3D_Model_with_Street_Level_Enhanced_3D_Non_Commercial_Trial_"
 {
-    float cesium:culledScreenSpaceError = 64
-    bool cesium:enableFogCulling = 1
-    bool cesium:enableFrustumCulling = 1
-    bool cesium:enforceCulledScreenSpaceError = 1
-    bool cesium:forbidHoles = 0
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1415196
-    uint cesium:loadingDescendantLimit = 20
-    uint64 cesium:maximumCachedBytes = 536870912
     float cesium:maximumScreenSpaceError = 4
-    uint cesium:maximumSimultaneousTileLoads = 20
-    bool cesium:preloadAncestors = 1
-    bool cesium:preloadSiblings = 1
-    bool cesium:smoothNormals = 0
-    bool cesium:suspendUpdate = 0
-    string cesium:url
-    token visibility = "inherited"
 }
 

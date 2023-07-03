@@ -1900,10 +1900,13 @@ def Xform "Root" (
 
 def CesiumDataPrim "Cesium"
 {
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiZTg2OGQwOC1mMjZlLTRkYWYtOTRjYS04MDBjYjU1ZWQ4MWYiLCJpZCI6MjU5LCJpYXQiOjE2ODg0MDc0NjV9._JWp1HuCjOKHF8JA88G8nL-Jla7EtbCZwJskjwx0MeY"
+    string cesium:projectDefaultIonAccessTokenId = ""
+}
+
+def CesiumGeoreferencePrim "CesiumGeoreference"
+{
     double cesium:georeferenceOrigin:height = 2250
     double cesium:georeferenceOrigin:latitude = 39.736401
     double cesium:georeferenceOrigin:longitude = -105.25737
-    string cesium:projectDefaultIonAccessToken
-    string cesium:projectDefaultIonAccessTokenId
 }
-
