@@ -8,7 +8,7 @@
             }
             dictionary Perspective = {
                 double3 position = (82903.47599474825, 25575.98256192613, 32533.25964435985)
-                double3 target = (-50421.46340148705, 4415.86524392683, -61477.930461287266)
+                double3 target = (-50421.463401487024, 4415.865243926837, -61477.930461287266)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -20,8 +20,15 @@
             }
             string boundCamera = "/OmniverseKit_Persp"
         }
+        dictionary navmeshSettings = {
+            double agentHeight = 180
+            double agentRadius = 20
+            bool excludeRigidBodies = 1
+            int ver = 1
+            double voxelCeiling = 460
+        }
         dictionary omni_layer = {
-            string authoring_layer = "./Denver.usd"
+            string authoring_layer = "./Denver.usda"
             dictionary muteness = {
             }
         }
@@ -37,39 +44,16 @@
             double "rtx:fog:fogHeightFalloff" = 0
             double "rtx:fog:fogStartDist" = 100000
             double "rtx:fog:fogStartHeight" = 20000
-            bool "rtx:indirectDiffuse:enabled" = 1
             float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
-            float3 "rtx:post:colorcorr:contrast" = (1, 1, 1)
-            float3 "rtx:post:colorcorr:gain" = (1, 1, 1)
-            float3 "rtx:post:colorcorr:gamma" = (1, 1, 1)
-            float3 "rtx:post:colorcorr:offset" = (0, 0, 0)
-            float3 "rtx:post:colorcorr:saturation" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:blackpoint" = (0, 0, 0)
-            float3 "rtx:post:colorgrad:contrast" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:gain" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:gamma" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:lift" = (0, 0, 0)
-            float3 "rtx:post:colorgrad:multiply" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:offset" = (0, 0, 0)
-            float3 "rtx:post:colorgrad:whitepoint" = (1, 1, 1)
             float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
-            float3 "rtx:post:lensFlares:anisoFlareFalloffX" = (450, 475, 500)
-            float3 "rtx:post:lensFlares:anisoFlareFalloffY" = (10, 10, 10)
             float3 "rtx:post:lensFlares:cutoffPoint" = (5, 5, 5)
             bool "rtx:post:lensFlares:enabled" = 1
             double "rtx:post:lensFlares:flareScale" = 0.25
-            float3 "rtx:post:lensFlares:haloFlareFalloff" = (10, 10, 10)
-            float3 "rtx:post:lensFlares:haloFlareRadius" = (75, 75, 75)
-            float3 "rtx:post:lensFlares:isotropicFlareFalloff" = (50, 50, 50)
-            double "rtx:post:tonemap:filmIso" = 90
+            double "rtx:post:tonemap:filmIso" = 30
             double "rtx:post:tonemap:irayReinhard:burnHighlights" = 1
             double "rtx:post:tonemap:irayReinhard:crushBlacks" = 0
             double "rtx:post:tonemap:irayReinhard:saturation" = 1.1
             int "rtx:post:tonemap:op" = 7
-            float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
-            float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
-            float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
-            float3 "rtx:sceneDb:ambientLightColor" = (0.1, 0.1, 0.1)
         }
     }
     defaultPrim = "World"
@@ -83,31 +67,16 @@
 def Xform "World"
 {
     token visibility = "inherited"
-
-    def DomeLight "DomeLight" (
-        prepend apiSchemas = ["ShapingAPI"]
-    )
-    {
-        float intensity = 1000
-        float shaping:cone:angle = 180
-        float shaping:cone:softness
-        float shaping:focus
-        color3f shaping:focusTint
-        asset shaping:ies:file
-        asset texture:file = @../../shared_resources/skies/syferfontein_18d_clear_puresky_4k.exr@
-        token texture:format = "latlong"
-        bool visibleInPrimaryRay = 1
-        double3 xformOp:rotateXYZ = (270, -160, 0)
-        double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
-    }
 }
 
 def Xform "Environment"
 {
     int ground:size = 1400
     string ground:type = "On"
+    custom float location:latitude = 39.7392
+    custom float location:longitude = -104.9903
+    custom float location:north_orientation = 90
+    custom float time:current = 6.998768
     double3 xformOp:rotateXYZ = (0, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, 0, 0)
@@ -204,6 +173,73 @@ def Xform "Environment"
         double3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
     }
+
+    def Xform "sky" (
+        prepend references = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1/DomeLights/Dynamic/CloudySky.usd@
+    )
+    {
+        float3 xformOp:rotateZYX = (0, 0, 0)
+
+        over "AxisNorth"
+        {
+            double3 xformOp:rotateZYX = (0, 90, 0)
+
+            over "AxisLatitude"
+            {
+                double3 xformOp:rotateZYX = (0, 0, 39.739200592041016)
+
+                over "AxisSHA"
+                {
+                    double3 xformOp:rotateZYX = (255.36194780821313, 0, 0)
+
+                    over "AxisDeclination"
+                    {
+                        double3 xformOp:rotateZYX = (0, 0, 7.999834338981633)
+
+                        over "DistantLight"
+                        {
+                            color3f inputs:color = (0.82166415, 0.73746324, 0.646829)
+                            float inputs:intensity = 5000
+                        }
+                    }
+                }
+            }
+
+            over "AxisAzimuth"
+            {
+                double3 xformOp:rotateZYX = (0, -93.1642816185611, 0)
+
+                over "AxisElevation"
+                {
+                    double3 xformOp:rotateZYX = (0, 0, 16.34411476503166)
+                }
+            }
+        }
+
+        over "DomeLight"
+        {
+            float3 xformOp:rotateZYX = (270, 0, 90)
+        }
+
+        over "Looks"
+        {
+            over "SkyMaterial"
+            {
+                over "Shader"
+                {
+                    float inputs:Azimuth = -93.16428
+                    float inputs:DayOfYear = 100
+                    float inputs:Declination = 7.9998345
+                    float inputs:Elevation = 16.344114
+                    float inputs:Latitude = 39.7392
+                    float inputs:Longitude = -104.9903
+                    float inputs:NorthOrientation = 90
+                    float inputs:SHA = -75.361946
+                    float inputs:TimeOfDay = 6.998768
+                }
+            }
+        }
+    }
 }
 
 def CesiumDataPrim "Cesium"
@@ -222,9 +258,11 @@ def CesiumGeoreferencePrim "CesiumGeoreference"
 def CesiumTilesetPrim "Cesium_World_Terrain"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-638713700, -1273666800, -640816060), (638713700, -516352, 636611400)]
+    token visibility = "inherited"
     double3 xformOp:rotateXYZ = (0, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, -1000, 0)
@@ -246,9 +284,12 @@ over "OmniverseKit_Persp"
 def CesiumTilesetPrim "Aerometrex_Denver_High_Resolution_3D_Model_with_Street_Level_Enhanced_3D_Non_Commercial_Trial_"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 354307
     float cesium:maximumScreenSpaceError = 4
+    bool cesium:showCreditsOnScreen = 1
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-436150.88, -362711.66, -497160.66), (310803.56, 384242.78, 249793.78)]
+    token visibility = "inherited"
 }
 
