@@ -7,8 +7,8 @@
                 double radius = 500
             }
             dictionary Perspective = {
-                double3 position = (82903.47599474825, 25575.98256192613, 32533.25964435985)
-                double3 target = (-50421.463401487024, 4415.865243926837, -61477.930461287266)
+                double3 position = (342745.6028626797, 11748.42887404895, -204345.73737074246)
+                double3 target = (32425.716704079823, -8771.518052217823, -252009.76916704903)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -28,12 +28,11 @@
             double voxelCeiling = 460
         }
         dictionary omni_layer = {
-            string authoring_layer = "./Denver.usda"
+            string authoring_layer = "./02_lighting_the_stage.usda"
             dictionary muteness = {
             }
         }
         dictionary renderSettings = {
-            float3 "rtx:debugView:pixelDebug:textColor" = (0, 1e18, 0)
             bool "rtx:directLighting:domeLight:enabledInReflections" = 1
             bool "rtx:fog:enabled" = 1
             float3 "rtx:fog:fogColor" = (0.60392, 0.75294, 0.9098)
@@ -43,13 +42,11 @@
             double "rtx:fog:fogHeightDensity" = 0.2
             double "rtx:fog:fogHeightFalloff" = 0
             double "rtx:fog:fogStartDist" = 100000
-            double "rtx:fog:fogStartHeight" = 20000
-            float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
-            float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
+            double "rtx:fog:fogStartHeight" = 6000
+            int "rtx:post:histogram:enabled" = 1
             float3 "rtx:post:lensFlares:cutoffPoint" = (5, 5, 5)
             bool "rtx:post:lensFlares:enabled" = 1
             double "rtx:post:lensFlares:flareScale" = 0.25
-            double "rtx:post:tonemap:filmIso" = 30
             double "rtx:post:tonemap:irayReinhard:burnHighlights" = 1
             double "rtx:post:tonemap:irayReinhard:crushBlacks" = 0
             double "rtx:post:tonemap:irayReinhard:saturation" = 1.1
@@ -67,16 +64,25 @@
 def Xform "World"
 {
     token visibility = "inherited"
+
+    def "default_water" (
+        instanceable = false
+        delete references = @../../shared_resources/water/default_water.usd@
+        prepend references = @../../shared_resources/water/default_water.usda@
+    )
+    {
+        token visibility = "inherited"
+    }
 }
 
 def Xform "Environment"
 {
     int ground:size = 1400
     string ground:type = "On"
-    custom float location:latitude = 39.7392
-    custom float location:longitude = -104.9903
-    custom float location:north_orientation = 90
-    custom float time:current = 6.998768
+    custom double location:latitude = 37.7749
+    custom double location:longitude = -122.4194
+    custom double location:north_orientation = 90
+    custom float time:current = 17.65616
     double3 xformOp:rotateXYZ = (0, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, 0, 0)
@@ -186,11 +192,11 @@ def Xform "Environment"
 
             over "AxisLatitude"
             {
-                double3 xformOp:rotateZYX = (0, 0, 39.739200592041016)
+                double3 xformOp:rotateZYX = (0, 0, 37.7749)
 
                 over "AxisSHA"
                 {
-                    double3 xformOp:rotateZYX = (255.36194780821313, 0, 0)
+                    double3 xformOp:rotateZYX = (95.50106028074731, 0, 0)
 
                     over "AxisDeclination"
                     {
@@ -198,7 +204,7 @@ def Xform "Environment"
 
                         over "DistantLight"
                         {
-                            color3f inputs:color = (0.82166415, 0.73746324, 0.646829)
+                            color3f inputs:color = (0.48715866, 0.28525814, 0.09486347)
                             float inputs:intensity = 5000
                         }
                     }
@@ -207,11 +213,11 @@ def Xform "Environment"
 
             over "AxisAzimuth"
             {
-                double3 xformOp:rotateZYX = (0, -93.1642816185611, 0)
+                double3 xformOp:rotateZYX = (0, 86.9887841487719, 0)
 
                 over "AxisElevation"
                 {
-                    double3 xformOp:rotateZYX = (0, 0, 16.34411476503166)
+                    double3 xformOp:rotateZYX = (0, 0, 9.223505048682574)
                 }
             }
         }
@@ -227,15 +233,15 @@ def Xform "Environment"
             {
                 over "Shader"
                 {
-                    float inputs:Azimuth = -93.16428
+                    float inputs:Azimuth = 86.988785
                     float inputs:DayOfYear = 100
                     float inputs:Declination = 7.9998345
-                    float inputs:Elevation = 16.344114
-                    float inputs:Latitude = 39.7392
-                    float inputs:Longitude = -104.9903
+                    float inputs:Elevation = 9.223505
+                    float inputs:Latitude = 37.7749
+                    float inputs:Longitude = -122.4194
                     float inputs:NorthOrientation = 90
-                    float inputs:SHA = -75.361946
-                    float inputs:TimeOfDay = 6.998768
+                    float inputs:SHA = 84.49894
+                    float inputs:TimeOfDay = 17.65616
                 }
             }
         }
@@ -250,9 +256,9 @@ def CesiumDataPrim "Cesium"
 
 def CesiumGeoreferencePrim "CesiumGeoreference"
 {
-    double cesium:georeferenceOrigin:height = 1500
-    double cesium:georeferenceOrigin:latitude = 39.7392
-    double cesium:georeferenceOrigin:longitude = -104.9903
+    double cesium:georeferenceOrigin:height = 0
+    double cesium:georeferenceOrigin:latitude = 37.7749
+    double cesium:georeferenceOrigin:longitude = -122.4194
 }
 
 def CesiumTilesetPrim "Cesium_World_Terrain"
@@ -261,11 +267,10 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1
     uniform token cesium:sourceType = "ion"
-    float3[] extent = [(-638713700, -1273666800, -640816060), (638713700, -516352, 636611400)]
-    token visibility = "inherited"
+    float3[] extent = [(-638713700, -1273587500, -640783700), (638713700, -436992, 636643800)]
     double3 xformOp:rotateXYZ = (0, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0, -1000, 0)
+    double3 xformOp:translate = (0, -100, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 
     def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
@@ -275,21 +280,28 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     }
 }
 
+def CesiumTilesetPrim "Cesium_OSM_Buildings"
+{
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    string cesium:ionAccessToken = ""
+    int64 cesium:ionAssetId = 96188
+    uniform token cesium:sourceType = "ion"
+    token visibility = "invisible"
+}
+
 over "OmniverseKit_Persp"
 {
     float2 clippingRange = (1, 10000000000)
     float focalLength = 17
 }
 
-def CesiumTilesetPrim "Aerometrex_Denver_High_Resolution_3D_Model_with_Street_Level_Enhanced_3D_Non_Commercial_Trial_"
+def CesiumTilesetPrim "Aerometrex_San_Francisco_High_Resolution_3D_Model_with_Street_Level_Enhanced_3D_Non_Commercial_Trial_"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
     string cesium:ionAccessToken = ""
-    int64 cesium:ionAssetId = 354307
+    int64 cesium:ionAssetId = 1415196
     float cesium:maximumScreenSpaceError = 4
-    bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "ion"
-    float3[] extent = [(-436150.88, -362711.66, -497160.66), (310803.56, 384242.78, 249793.78)]
-    token visibility = "inherited"
+    float3[] extent = [(-326659.2, -461426.4, -650280.06), (610279.4, 475512.16, 286658.5)]
 }
 

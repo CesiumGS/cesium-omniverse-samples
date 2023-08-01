@@ -20,8 +20,15 @@
             }
             string boundCamera = "/World/Camera"
         }
+        dictionary navmeshSettings = {
+            double agentHeight = 180
+            double agentRadius = 20
+            bool excludeRigidBodies = 1
+            int ver = 1
+            double voxelCeiling = 460
+        }
         dictionary omni_layer = {
-            string authoring_layer = "./GoogleZurich.usda"
+            string authoring_layer = "./Zurich.usda"
             dictionary muteness = {
             }
         }
@@ -37,38 +44,16 @@
             double "rtx:fog:fogHeightFalloff" = 0
             double "rtx:fog:fogStartDist" = 100000
             double "rtx:fog:fogStartHeight" = 6000
-            bool "rtx:indirectDiffuse:enabled" = 1
             float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
-            float3 "rtx:post:colorcorr:contrast" = (1, 1, 1)
-            float3 "rtx:post:colorcorr:gain" = (1, 1, 1)
-            float3 "rtx:post:colorcorr:gamma" = (1, 1, 1)
-            float3 "rtx:post:colorcorr:offset" = (0, 0, 0)
-            float3 "rtx:post:colorcorr:saturation" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:blackpoint" = (0, 0, 0)
-            float3 "rtx:post:colorgrad:contrast" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:gain" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:gamma" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:lift" = (0, 0, 0)
-            float3 "rtx:post:colorgrad:multiply" = (1, 1, 1)
-            float3 "rtx:post:colorgrad:offset" = (0, 0, 0)
-            float3 "rtx:post:colorgrad:whitepoint" = (1, 1, 1)
             float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
-            float3 "rtx:post:lensFlares:anisoFlareFalloffX" = (450, 475, 500)
-            float3 "rtx:post:lensFlares:anisoFlareFalloffY" = (10, 10, 10)
             float3 "rtx:post:lensFlares:cutoffPoint" = (5, 5, 5)
             bool "rtx:post:lensFlares:enabled" = 1
             double "rtx:post:lensFlares:flareScale" = 0.25
-            float3 "rtx:post:lensFlares:haloFlareFalloff" = (10, 10, 10)
-            float3 "rtx:post:lensFlares:haloFlareRadius" = (75, 75, 75)
-            float3 "rtx:post:lensFlares:isotropicFlareFalloff" = (50, 50, 50)
+            double "rtx:post:tonemap:filmIso" = 30
             double "rtx:post:tonemap:irayReinhard:burnHighlights" = 1
             double "rtx:post:tonemap:irayReinhard:crushBlacks" = 0
             double "rtx:post:tonemap:irayReinhard:saturation" = 1.1
             int "rtx:post:tonemap:op" = 7
-            float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
-            float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
-            float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
-            float3 "rtx:sceneDb:ambientLightColor" = (0.1, 0.1, 0.1)
         }
     }
     defaultPrim = "World"
@@ -82,25 +67,6 @@
 def Xform "World"
 {
     token visibility = "inherited"
-
-    def DomeLight "DomeLight" (
-        prepend apiSchemas = ["ShapingAPI"]
-    )
-    {
-        float intensity = 1000
-        float shaping:cone:angle = 180
-        float shaping:cone:softness
-        float shaping:focus
-        color3f shaping:focusTint
-        asset shaping:ies:file
-        asset texture:file = @../../shared_resources/skies/syferfontein_18d_clear_puresky_4k.exr@
-        token texture:format = "latlong"
-        bool visibleInPrimaryRay = 1
-        double3 xformOp:rotateXYZ = (267.4000039845705, -72.6000010818243, 0)
-        double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
-    }
 
     def Camera "Camera" (
         hide_in_stage_window = false
@@ -155,5 +121,87 @@ def CesiumTilesetPrim "Cesium_Tileset"
     bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "url"
     string cesium:url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyAgokGjJWBO1iQTNTzF6bea8ZE0u12kTrU"
+    float3[] extent = [(-797267140, -1433976300, -796725700), (797267140, 160558020, 792462400)]
+}
+
+def Xform "Environment"
+{
+    custom float location:latitude = 47.366234
+    custom float location:longitude = 8.531907
+    custom float location:north_orientation = 90
+    custom float time:current = 9.955789
+
+    def Xform "sky" (
+        prepend references = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1/DomeLights/Dynamic/CloudySky.usd@
+    )
+    {
+        float3 xformOp:rotateZYX = (0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-6994.186098250821, -1.1368683772161603e-11, -54.695065361102024)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZYX", "xformOp:scale"]
+
+        over "AxisNorth"
+        {
+            double3 xformOp:rotateZYX = (0, 90, 0)
+
+            over "AxisLatitude"
+            {
+                double3 xformOp:rotateZYX = (0, 0, 47.366233825683594)
+
+                over "AxisSHA"
+                {
+                    double3 xformOp:rotateZYX = (211.00663641447534, 0, 0)
+
+                    over "AxisDeclination"
+                    {
+                        double3 xformOp:rotateZYX = (0, 0, 7.999834338981633)
+
+                        over "DistantLight"
+                        {
+                            color3f inputs:color = (1, 0.98, 0.95)
+                            float inputs:intensity = 5000
+                        }
+                    }
+                }
+            }
+
+            over "AxisAzimuth"
+            {
+                double3 xformOp:rotateZYX = (0, -136.104162408304, 0)
+
+                over "AxisElevation"
+                {
+                    double3 xformOp:rotateZYX = (0, 0, 42.630299047710984)
+                }
+            }
+        }
+
+        over "DomeLight"
+        {
+            float3 xformOp:rotateZYX = (270, 0, 90)
+        }
+
+        over "Looks"
+        {
+            over "SkyMaterial"
+            {
+                over "Shader"
+                {
+                    float inputs:Azimuth = -136.10416
+                    custom float inputs:CloudCoverage = 0
+                    custom bool inputs:CumulusEnabled = 0
+                    float inputs:DayOfYear = 100
+                    float inputs:Declination = 7.9998345
+                    float inputs:Elevation = 42.6303
+                    custom float inputs:haze = 0
+                    float inputs:Latitude = 47.366234
+                    float inputs:Longitude = 8.531907
+                    float inputs:NorthOrientation = 90
+                    float inputs:SHA = -31.006636
+                    float inputs:TimeOfDay = 9.955789
+                }
+            }
+        }
+    }
 }
 
