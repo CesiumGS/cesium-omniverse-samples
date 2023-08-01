@@ -1,3 +1,8 @@
+### v0.9.0 - 2023-08-01
+
+- Add project files for dynamic skies and sun study tutorial 
+- Updates for Cesium for Omniverse v0.9.0
+
 ### v0.8.0 - 2023-07-03
 
 - Updates for Cesium for Omniverse v0.8.0

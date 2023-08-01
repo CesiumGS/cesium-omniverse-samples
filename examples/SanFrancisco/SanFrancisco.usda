@@ -268,7 +268,7 @@ def Xform "Environment"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiZTg2OGQwOC1mMjZlLTRkYWYtOTRjYS04MDBjYjU1ZWQ4MWYiLCJpZCI6MjU5LCJpYXQiOjE2ODg0MDc0NjV9._JWp1HuCjOKHF8JA88G8nL-Jla7EtbCZwJskjwx0MeY"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxM2I2ZjEzMi1jNWNmLTQzNzAtYjNkMi1hNTI3NzRlYjdlZjIiLCJpZCI6MjU5LCJpYXQiOjE2OTA4OTczODB9.ohya-QYuUkbFPi4rR658dgnr2JUHbOrrbpxT6oCbPps"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
