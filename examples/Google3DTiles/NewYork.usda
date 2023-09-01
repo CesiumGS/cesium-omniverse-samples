@@ -98,7 +98,7 @@ def Xform "World"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxM2I2ZjEzMi1jNWNmLTQzNzAtYjNkMi1hNTI3NzRlYjdlZjIiLCJpZCI6MjU5LCJpYXQiOjE2OTA4OTczODB9.ohya-QYuUkbFPi4rR658dgnr2JUHbOrrbpxT6oCbPps"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlZjM4NjgzNC01Nzg5LTQyMjAtYmYxMC0yNGY2MGEzOGViMGUiLCJpZCI6MjU5LCJpYXQiOjE2OTM1Nzg5MTN9.-J367LOCiroxRBoH9eKhgssEd2Wk_IoqOxROfy-dPjs"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
@@ -120,7 +120,7 @@ def CesiumTilesetPrim "Cesium_Tileset"
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
     bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "url"
-    string cesium:url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBJeX3XLT9fetpX_hmNqjHYEfWLm3eJbAk"
+    string cesium:url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBTr9BGnwtJmS0sL86iTb6QhdJlnkAFLoE"
     float3[] extent = [(-797267140, -1434224600, -796708030), (797267140, 160309700, 792480060)]
 }
 
