@@ -1,0 +1,873 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (32121.939675280137, 20043.672178387336, -26328.647743149333)
+                double3 target = (612858.5577983944, -92373.31458672418, -214254.74671579493)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary metricsAssembler = {
+            dictionary "/World/BoundaryRdDesign" = {
+            }
+            int version = 1
+        }
+        dictionary navmeshSettings = {
+            double agentHeight = 180
+            double agentRadius = 20
+            bool excludeRigidBodies = 1
+            uint64 ver = 1
+            double voxelCeiling = 460
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./TilesetClipping.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        int refinementOverrideImplVersion = 0
+        dictionary renderSettings = {
+            float3 "rtx:debugView:pixelDebug:textColor" = (0, 1e18, 0)
+            float3 "rtx:fog:fogColor" = (0.75, 0.75, 0.75)
+            float3 "rtx:index:regionOfInterestMax" = (0, 0, 0)
+            float3 "rtx:index:regionOfInterestMin" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_ground_position" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_ground_reflectivity" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_rotation_axis" = (3.4028235e38, 3.4028235e38, 3.4028235e38)
+            float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gain" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:offset" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:saturation" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:blackpoint" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gain" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:lift" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:multiply" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:offset" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:whitepoint" = (1, 1, 1)
+            bool "rtx:post:histogram:enabled" = 1
+            float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffX" = (450, 475, 500)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffY" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:cutoffPoint" = (2, 2, 2)
+            double "rtx:post:lensFlares:flareScale" = 0.075
+            float3 "rtx:post:lensFlares:haloFlareFalloff" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:haloFlareRadius" = (75, 75, 75)
+            float3 "rtx:post:lensFlares:isotropicFlareFalloff" = (50, 50, 50)
+            float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
+            float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
+            float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
+            float3 "rtx:sceneDb:ambientLightColor" = (0, 0, 0)
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Scope "Looks"
+    {
+        def Material "ClippedTerrain"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/ClippedTerrain/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/ClippedTerrain/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/ClippedTerrain/Shader.outputs:out>
+            uniform token ui:nodegraph:node:expansionState = "open"
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0.2, 0.2, 0.2) (
+                    customData = {
+                        float3 default = (0.2, 0.2, 0.2)
+                    }
+                    displayGroup = "Albedo"
+                    displayName = "Albedo Color"
+                    doc = """This is the albedo base color
+
+"""
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:diffuse_color_constant.connect = </World/Looks/ClippedTerrain/construct_color.outputs:out>
+                bool inputs:enable_opacity = 1 (
+                    customData = {
+                        bool default = 0
+                    }
+                    displayGroup = "Opacity"
+                    displayName = "Enable Opacity"
+                    doc = """Enables the use of cutout opacity
+
+"""
+                    hidden = false
+                )
+                float inputs:opacity_constant = 1 (
+                    customData = {
+                        float default = 1
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayGroup = "Opacity"
+                    displayName = "Opacity Amount"
+                    doc = """Opacity value between 0 and 1, when Opacity Map is not valid
+
+"""
+                    hidden = false
+                )
+                float inputs:opacity_constant.connect = </World/Looks/ClippedTerrain/x.outputs:out>
+                float inputs:reflection_roughness_constant = 1 (
+                    customData = {
+                        float default = 0.5
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayGroup = "Reflectivity"
+                    displayName = "Roughness Amount"
+                    doc = """Higher roughness values lead to more blurry reflections
+
+"""
+                    hidden = false
+                )
+                float inputs:specular_level = 0.5 (
+                    customData = {
+                        float default = 0.5
+                        dictionary soft_range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayGroup = "Reflectivity"
+                    displayName = "Specular"
+                    doc = """The specular level (intensity) of the material
+
+"""
+                    hidden = false
+                )
+                token outputs:out (
+                    renderType = "material"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+            }
+
+            def Shader "cesium_base_color_texture_float4" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_base_color_texture_float4"
+                token inputs:base_color_texture (
+                    connectability = "interfaceOnly"
+                    hidden = true
+                    renderType = "gltf_texture_lookup_value"
+                )
+                float4 outputs:out (
+                    renderType = "float4"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-1242.064, 2.630165)
+            }
+
+            def Shader "xyz" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "xyz(float4)"
+                float4 inputs:a (
+                    customData = {
+                        float4 default = (0, 0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "float4"
+                )
+                float4 inputs:a.connect = </World/Looks/ClippedTerrain/cesium_base_color_texture_float4.outputs:out>
+                float3 outputs:out (
+                    renderType = "float3"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-1011.68164, -12.780031)
+            }
+
+            def Shader "construct_color" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "construct_color(float3)"
+                float3 inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "float3"
+                )
+                float3 inputs:a.connect = </World/Looks/ClippedTerrain/xyz.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-774.3646, 28.82751)
+            }
+
+            def Shader "x" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "x(float3)"
+                float3 inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "float3"
+                )
+                float3 inputs:a.connect = </World/Looks/ClippedTerrain/cesium_lookup_world_texture_float3.outputs:out>
+                bool inputs:excludeFromWhiteMode = 0 (
+                    customData = {
+                        bool default = 0
+                    }
+                    displayGroup = "Material Flags"
+                    displayName = "Exclude from White Mode"
+                    hidden = false
+                )
+                float outputs:out (
+                    renderType = "float"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-888.4769, 336.17453)
+            }
+
+            def Shader "cesium_lookup_world_texture_float3" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                reorder properties = ["inputs:texture", "inputs:min_world", "inputs:max_world", "inputs:up_axis"]
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_lookup_world_texture_float3"
+                bool inputs:excludeFromWhiteMode = 0 (
+                    customData = {
+                        bool default = 0
+                    }
+                    displayGroup = "Material Flags"
+                    displayName = "Exclude from White Mode"
+                    hidden = false
+                )
+                float2 inputs:max_world = (139000, -72000) (
+                    customData = {
+                        float2 default = (5000, 5000)
+                    }
+                    hidden = false
+                    renderType = "float2"
+                )
+                float2 inputs:min_world = (29000, -2000) (
+                    customData = {
+                        float2 default = (-5000, -5000)
+                    }
+                    hidden = false
+                    renderType = "float2"
+                )
+                asset inputs:texture = @D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/Materials/Material__18/footprint_clipping.png@ (
+                    colorSpace = "sRGB"
+                    customData = {
+                        asset default = @@
+                    }
+                    hidden = false
+                    renderType = "texture_2d"
+                )
+                int inputs:up_axis (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "up_axis_mode"
+                    sdrMetadata = {
+                        string __SDR__enum_value = "Y"
+                        string options = "Y:0|Z:1"
+                    }
+                )
+                float3 outputs:out (
+                    renderType = "float3"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-1166.31, 158.99193)
+            }
+        }
+
+        def Material "Clipping"
+        {
+            token outputs:displacement.connect = </World/Looks/Clipping/cesium_material.outputs:out>
+            token outputs:mdl:displacement
+            token outputs:mdl:surface
+            token outputs:mdl:volume
+            token outputs:surface.connect = </World/Looks/Clipping/cesium_material.outputs:out>
+            token outputs:volume.connect = </World/Looks/Clipping/cesium_material.outputs:out>
+            uniform token ui:nodegraph:node:expansionState = "open"
+
+            def Shader "cesium_material" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_material"
+                float inputs:alpha_cutoff (
+                    customData = {
+                        float default = 0.5
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Alpha Cutoff"
+                    doc = """Threshold to decide between fully transparent and fully opaque when alpha mode is 'mask'.
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                int inputs:alpha_mode = 1 (
+                    customData = {
+                        int default = 0
+                    }
+                    displayName = "Alpha Mode"
+                    doc = """Select how to interpret the alpha value.
+
+"""
+                    hidden = false
+                    renderType = "gltf_alpha_mode"
+                    sdrMetadata = {
+                        string __SDR__enum_value = "opaque"
+                        string options = "opaque:0|mask:1|blend:2"
+                    }
+                )
+                float inputs:base_alpha (
+                    customData = {
+                        float default = 1
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Base Alpha"
+                    doc = """Select between transparent (0.0) and opaque (1.0).
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                float inputs:base_alpha.connect = </World/Looks/Clipping/x.outputs:out>
+                color3f inputs:base_color_factor (
+                    customData = {
+                        float3 default = (1, 1, 1)
+                    }
+                    displayName = "Base Color Factor"
+                    doc = """The base color of the material.
+
+"""
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:base_color_factor.connect = </World/Looks/Clipping/construct_color.outputs:out>
+                color3f inputs:emissive_factor (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    displayName = "Emissive Factor"
+                    doc = """The emissive color of the material.
+
+"""
+                    hidden = false
+                    renderType = "color"
+                )
+                float inputs:metallic_factor (
+                    customData = {
+                        float default = 0
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Metallic Factor"
+                    doc = """The metalness of the material. Select between dielectric (0.0) and metallic (1.0).
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                float inputs:roughness_factor (
+                    customData = {
+                        float default = 1
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Roughness Factor"
+                    doc = """The roughness of the material. Select between very glossy (0.0) and dull (1.0).
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                token outputs:out (
+                    renderType = "material"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-442.5377, -15.757042)
+            }
+
+            def Shader "cesium_base_color_texture_float4" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_base_color_texture_float4"
+                token inputs:base_color_texture (
+                    connectability = "interfaceOnly"
+                    hidden = true
+                    renderType = "gltf_texture_lookup_value"
+                )
+                float4 outputs:out (
+                    renderType = "float4"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-1162.5325, -27.612782)
+            }
+
+            def Shader "xyz" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "xyz(float4)"
+                float4 inputs:a (
+                    customData = {
+                        float4 default = (0, 0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "float4"
+                )
+                float4 inputs:a.connect = </World/Looks/Clipping/cesium_base_color_texture_float4.outputs:out>
+                float3 outputs:out (
+                    renderType = "float3"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-953.671, -28.619308)
+            }
+
+            def Shader "construct_color" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "construct_color(float3)"
+                float3 inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "float3"
+                )
+                float3 inputs:a.connect = </World/Looks/Clipping/xyz.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-742.8816, -26.804672)
+            }
+
+            def Shader "cesium_lookup_world_texture_float3" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                reorder properties = ["inputs:texture", "inputs:min_world", "inputs:max_world", "inputs:up_axis"]
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_lookup_world_texture_float3"
+                bool inputs:excludeFromWhiteMode = 0 (
+                    customData = {
+                        bool default = 0
+                        token remappedFrom = ""
+                    }
+                    displayGroup = "Material Flags"
+                    displayName = "Exclude from White Mode"
+                    hidden = false
+                )
+                float2 inputs:max_world = (139000, -72000) (
+                    customData = {
+                        float2 default = (5000, 5000)
+                    }
+                    hidden = false
+                    renderType = "float2"
+                )
+                float2 inputs:min_world = (29000, -2000) (
+                    customData = {
+                        float2 default = (-5000, -5000)
+                    }
+                    hidden = false
+                    renderType = "float2"
+                )
+                asset inputs:texture = @D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/Materials/Material__18/footprint_clipping.png@ (
+                    colorSpace = "sRGB"
+                    customData = {
+                        asset default = @@
+                    }
+                    hidden = false
+                    renderType = "texture_2d"
+                )
+                int inputs:up_axis (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "up_axis_mode"
+                    sdrMetadata = {
+                        string __SDR__enum_value = "Y"
+                        string options = "Y:0|Z:1"
+                    }
+                )
+                float3 outputs:out (
+                    renderType = "float3"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-1166.31, 158.99193)
+            }
+
+            def Shader "x" (
+                apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "x(float3)"
+                float3 inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "float3"
+                )
+                float3 inputs:a.connect = </World/Looks/Clipping/cesium_lookup_world_texture_float3.outputs:out>
+                bool inputs:excludeFromWhiteMode = 0 (
+                    customData = {
+                        bool default = 0
+                        token remappedFrom = ""
+                    }
+                    displayGroup = "Material Flags"
+                    displayName = "Exclude from White Mode"
+                    hidden = false
+                )
+                float outputs:out (
+                    renderType = "float"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-888.4769, 336.17453)
+            }
+        }
+    }
+
+    def Xform "BoundaryRd_Anchor" (
+        prepend apiSchemas = ["CesiumGlobeAnchorSchemaAPI"]
+    )
+    {
+        double3 cesium:anchor:geographicCoordinates = (-27.5738612, 153.0303992, 41.1)
+        prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
+        double3 cesium:anchor:position = (-5042472.903098379, 2565899.2494983682, -2934746.8016285496)
+        double3 cesium:anchor:rotation = (166.67613220214844, 24.365182876586914, 119.85850524902344)
+        double3 cesium:anchor:scale = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        matrix4d xformOp:transform:cesium = ( (0.9999999776482575, -2.6738269567318323e-9, 3.9879286934363316e-8, 0), (2.673828174566775e-9, 0.9999999776482582, -3.078844112991419e-8, 0), (-3.9879286759468575e-8, 3.0788441351958795e-8, 0.9999999776482573, 0), (-7.899738073348934, 4110.000000119209, 2.9802322387695312e-8, 1) )
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
+
+        def "BoundaryRdDesign" (
+            prepend payload = @file:/D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/BoundaryRdDesign.usda@
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0.0000032575297)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:scale:unitsResolve = (100, 100, 100)
+            double3 xformOp:translate = (0, 0, 2.9802322387695312e-8)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:scale:unitsResolve"]
+        }
+    }
+
+    def Mesh "Plane" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        float3[] extent = [(-50, 0, -50), (50, 0, 50)]
+        int[] faceVertexCounts = [4]
+        int[] faceVertexIndices = [0, 2, 3, 1]
+        rel material:binding = </World/Looks/ClippedTerrain> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        normal3f[] normals = [(0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-50, 0, -50), (50, 0, -50), (-50, 0, 50), (50, 0, 50)]
+        texCoord2f[] primvars:st = [(0, 1), (0, 0), (1, 0), (1, 1)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (597.9350782786014, 8434.42741171347, 597.9350782786014)
+        double3 xformOp:translate = (143378.3120821676, 10000.914655315279, 37916.639532919944)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+
+def CesiumDataPrim "Cesium"
+{
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYWY2ZmRhMi1jMTRlLTQ0OGEtYTcyMi04YWU1NmIwNTRmZDAiLCJpZCI6MTI0NzA0LCJpYXQiOjE2NzY2NjgzNDZ9.2ZJhgANBdVuz0C0i0zn6R1tE2ZZnbgFLLGDH3NRXrWg"
+    string cesium:projectDefaultIonAccessTokenId = "aaf6fda2-c14e-448a-a722-8ae56b054fd0"
+}
+
+def CesiumGeoreferencePrim "CesiumGeoreference"
+{
+    double cesium:georeferenceOrigin:height = 0
+    double cesium:georeferenceOrigin:latitude = -27.5738612
+    double cesium:georeferenceOrigin:longitude = 153.0304
+}
+
+def CesiumTilesetPrim "Cesium_World_Terrain" (
+    prepend apiSchemas = ["MaterialBindingAPI"]
+)
+{
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    string cesium:ionAccessToken = ""
+    int64 cesium:ionAssetId = 1
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-638713700, -1273931300, -636960500), (638713700, -780864, 640466940)]
+    rel material:binding = </World/Looks/ClippedTerrain> (
+        bindMaterialAs = "weakerThanDescendants"
+    )
+    token visibility = "invisible"
+
+    def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
+    {
+        string cesium:ionAccessToken = ""
+        int64 cesium:ionAssetId = 2
+    }
+}
+
+def Xform "Environment"
+{
+    custom float location:latitude = -27.573862
+    custom float location:longitude = 153.0304
+    custom float location:north_orientation = 90
+    custom float time:current = 9.168096
+
+    def Xform "sky" (
+        prepend references = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1/DomeLights/Dynamic/CloudySky.usd@
+    )
+    {
+        float3 xformOp:rotateZYX = (0, 0, 0)
+
+        over "Looks"
+        {
+            over "SkyMaterial"
+            {
+                over "Shader"
+                {
+                    float inputs:Azimuth = -55.676105
+                    custom float inputs:CloudCoverage = 0
+                    custom bool inputs:CumulusEnabled = 0
+                    float inputs:DayOfYear = 100
+                    float inputs:Declination = 7.9998345
+                    float inputs:Elevation = 35.40903
+                    custom float inputs:haze = 0
+                    float inputs:Latitude = 51.426
+                    float inputs:Longitude = -0.985
+                    float inputs:NorthOrientation = 0
+                    float inputs:SHA = -42.822033
+                    float inputs:TimeOfDay = 6.93
+                }
+            }
+        }
+
+        over "AxisNorth"
+        {
+            double3 xformOp:rotateZYX = (0, 90, 0)
+
+            over "AxisLatitude"
+            {
+                double3 xformOp:rotateZYX = (0, 0, -27.573862075805664)
+
+                over "AxisSHA"
+                {
+                    double3 xformOp:rotateZYX = (222.82203176969995, 0, 0)
+
+                    over "AxisDeclination"
+                    {
+                        double3 xformOp:rotateZYX = (0, 0, 7.999834338981633)
+
+                        over "DistantLight"
+                        {
+                            color3f inputs:color = (1, 0.98, 0.95)
+                            float inputs:intensity = 5000
+                        }
+                    }
+                }
+            }
+
+            over "AxisAzimuth"
+            {
+                double3 xformOp:rotateZYX = (0, -55.67610447203585, 0)
+
+                over "AxisElevation"
+                {
+                    double3 xformOp:rotateZYX = (0, 0, 35.40902983453279)
+                }
+            }
+        }
+
+        over "DomeLight"
+        {
+            float3 xformOp:rotateZYX = (270, 0, 90)
+        }
+    }
+}
+
+def CesiumTilesetPrim "Cesium_Tileset" (
+    prepend apiSchemas = ["MaterialBindingAPI"]
+)
+{
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    string cesium:ionAccessToken = ""
+    int64 cesium:ionAssetId = 0
+    bool cesium:showCreditsOnScreen = 1
+    uniform token cesium:sourceType = "url"
+    string cesium:url = "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBxuWsnHCKWkqQnSIhdWpsF7bcWvbgpoos"
+    float3[] extent = [(-797267140, -1434623200, -792840800), (797267140, 159911040, 796347260)]
+    rel material:binding = </World/Looks/Clipping> (
+        bindMaterialAs = "weakerThanDescendants"
+    )
+}
+
+def Shader "cesium_lookup_world_texture_float3" (
+    apiSchemas = ["NodeGraphNodeAPI"]
+)
+{
+    reorder properties = ["inputs:texture", "inputs:min_world", "inputs:max_world", "inputs:up_axis"]
+    uniform token info:implementationSource = "sourceAsset"
+    uniform asset info:mdl:sourceAsset = @cesium.mdl@
+    uniform token info:mdl:sourceAsset:subIdentifier = "cesium_lookup_world_texture_float3"
+    bool inputs:excludeFromWhiteMode = 0 (
+        customData = {
+            bool default = 0
+            token remappedFrom = ""
+        }
+        displayGroup = "Material Flags"
+        displayName = "Exclude from White Mode"
+        hidden = false
+    )
+    float2 inputs:max_world = (139000, -72000) (
+        customData = {
+            float2 default = (5000, 5000)
+        }
+        hidden = false
+        renderType = "float2"
+    )
+    float2 inputs:min_world = (29000, -2000) (
+        customData = {
+            float2 default = (-5000, -5000)
+        }
+        hidden = false
+        renderType = "float2"
+    )
+    asset inputs:texture = @D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/Materials/Material__18/footprint_clipping.png@ (
+        colorSpace = "sRGB"
+        customData = {
+            asset default = @@
+        }
+        hidden = false
+        renderType = "texture_2d"
+    )
+    int inputs:up_axis (
+        customData = {
+            int default = 0
+        }
+        hidden = false
+        renderType = "up_axis_mode"
+        sdrMetadata = {
+            string __SDR__enum_value = "Y"
+            string options = "Y:0|Z:1"
+        }
+    )
+    float3 outputs:out (
+        renderType = "float3"
+    )
+    uniform token ui:nodegraph:node:expansionState = "open"
+    uniform float2 ui:nodegraph:node:pos = (-1166.31, 158.99193)
+}
+
+def Shader "x" (
+    apiSchemas = ["NodeGraphNodeAPI"]
+)
+{
+    uniform token info:implementationSource = "sourceAsset"
+    uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
+    uniform token info:mdl:sourceAsset:subIdentifier = "x(float3)"
+    float3 inputs:a (
+        customData = {
+            float3 default = (0, 0, 0)
+        }
+        hidden = false
+        renderType = "float3"
+    )
+    float3 inputs:a.connect = </cesium_lookup_world_texture_float3.outputs:out>
+    bool inputs:excludeFromWhiteMode = 0 (
+        customData = {
+            bool default = 0
+            token remappedFrom = ""
+        }
+        displayGroup = "Material Flags"
+        displayName = "Exclude from White Mode"
+        hidden = false
+    )
+    float outputs:out (
+        renderType = "float"
+    )
+    uniform token ui:nodegraph:node:expansionState = "open"
+    uniform float2 ui:nodegraph:node:pos = (-888.4769, 336.17453)
+}
+
