@@ -300,7 +300,7 @@ def Xform "World"
                     hidden = false
                     renderType = "float2"
                 )
-                asset inputs:texture = @D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/Materials/Material__18/footprint_clipping.png@ (
+                asset inputs:texture = @resources/Materials/Material__18/footprint_clipping.png@ (
                     colorSpace = "sRGB"
                     customData = {
                         asset default = @@
@@ -544,7 +544,7 @@ def Xform "World"
                     hidden = false
                     renderType = "float2"
                 )
-                asset inputs:texture = @D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/Materials/Material__18/footprint_clipping.png@ (
+                asset inputs:texture = @resources/Materials/Material__18/footprint_clipping.png@ (
                     colorSpace = "sRGB"
                     customData = {
                         asset default = @@
@@ -619,7 +619,7 @@ def Xform "World"
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
 
         def "BoundaryRdDesign" (
-            prepend payload = @file:/D:/_dev/ov/cesium-omniverse-samples/examples/TilesetMaterials/resources/BoundaryRdDesign.usda@
+            prepend payload = @resources/BoundaryRdDesign.usda@
         )
         {
             float3 xformOp:rotateXYZ = (0, -0, 0)
