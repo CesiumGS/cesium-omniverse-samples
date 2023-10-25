@@ -8,7 +8,7 @@
             }
             dictionary Perspective = {
                 double3 position = (197036.64254137815, 191641.79092762904, 593772.7086077139)
-                double3 target = (19158.94021321484, 71087.98646241013, -14231.66883152863)
+                double3 target = (19158.94021321481, 71087.98646241006, -14231.668831528747)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -89,7 +89,6 @@
             float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
             float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
             float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
-            token "rtx:rendermode" = "PathTracing"
             float3 "rtx:sceneDb:ambientLightColor" = (0, 0, 0)
         }
     }
@@ -510,7 +509,7 @@ def Xform "Environment"
                     float inputs:Longitude = -123.1207
                     float inputs:NorthOrientation = 90
                     float inputs:SHA = -58.85765
-                    float inputs:TimeOfDay = 8.099054
+                    float inputs:TimeOfDay = 6.93
                 }
             }
         }

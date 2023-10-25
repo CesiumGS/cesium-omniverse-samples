@@ -8,7 +8,7 @@
             }
             dictionary Perspective = {
                 double3 position = (45218.78254726048, 9489.4130807436, -45776.20420252356)
-                double3 target = (291110.7494173891, -26701.482604735756, -12113.862276983818)
+                double3 target = (291110.74941738916, -26701.482604735837, -12113.862276983811)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -107,8 +107,8 @@ def Xform "World"
                     }
                     displayGroup = "Albedo"
                     displayName = "Albedo Color"
-                    doc = """This is the albedo base color
-
+                    doc = """This is the albedo base color\r
+\r
 """
                     hidden = false
                     renderType = "color"
@@ -120,8 +120,8 @@ def Xform "World"
                     }
                     displayGroup = "Opacity"
                     displayName = "Enable Opacity"
-                    doc = """Enables the use of cutout opacity
-
+                    doc = """Enables the use of cutout opacity\r
+\r
 """
                     hidden = false
                 )
@@ -135,8 +135,8 @@ def Xform "World"
                     }
                     displayGroup = "Opacity"
                     displayName = "Opacity Amount"
-                    doc = """Opacity value between 0 and 1, when Opacity Map is not valid
-
+                    doc = """Opacity value between 0 and 1, when Opacity Map is not valid\r
+\r
 """
                     hidden = false
                 )
@@ -151,8 +151,8 @@ def Xform "World"
                     }
                     displayGroup = "Reflectivity"
                     displayName = "Roughness Amount"
-                    doc = """Higher roughness values lead to more blurry reflections
-
+                    doc = """Higher roughness values lead to more blurry reflections\r
+\r
 """
                     hidden = false
                 )
@@ -166,8 +166,8 @@ def Xform "World"
                     }
                     displayGroup = "Reflectivity"
                     displayName = "Specular"
-                    doc = """The specular level (intensity) of the material
-
+                    doc = """The specular level (intensity) of the material\r
+\r
 """
                     hidden = false
                 )
@@ -353,8 +353,8 @@ def Xform "World"
                         }
                     }
                     displayName = "Alpha Cutoff"
-                    doc = """Threshold to decide between fully transparent and fully opaque when alpha mode is 'mask'.
-
+                    doc = """Threshold to decide between fully transparent and fully opaque when alpha mode is 'mask'.\r
+\r
 """
                     hidden = false
                     renderType = "float"
@@ -364,8 +364,8 @@ def Xform "World"
                         int default = 0
                     }
                     displayName = "Alpha Mode"
-                    doc = """Select how to interpret the alpha value.
-
+                    doc = """Select how to interpret the alpha value.\r
+\r
 """
                     hidden = false
                     renderType = "gltf_alpha_mode"
@@ -383,8 +383,8 @@ def Xform "World"
                         }
                     }
                     displayName = "Base Alpha"
-                    doc = """Select between transparent (0.0) and opaque (1.0).
-
+                    doc = """Select between transparent (0.0) and opaque (1.0).\r
+\r
 """
                     hidden = false
                     renderType = "float"
@@ -395,8 +395,8 @@ def Xform "World"
                         float3 default = (1, 1, 1)
                     }
                     displayName = "Base Color Factor"
-                    doc = """The base color of the material.
-
+                    doc = """The base color of the material.\r
+\r
 """
                     hidden = false
                     renderType = "color"
@@ -407,8 +407,8 @@ def Xform "World"
                         float3 default = (0, 0, 0)
                     }
                     displayName = "Emissive Factor"
-                    doc = """The emissive color of the material.
-
+                    doc = """The emissive color of the material.\r
+\r
 """
                     hidden = false
                     renderType = "color"
@@ -422,8 +422,8 @@ def Xform "World"
                         }
                     }
                     displayName = "Metallic Factor"
-                    doc = """The metalness of the material. Select between dielectric (0.0) and metallic (1.0).
-
+                    doc = """The metalness of the material. Select between dielectric (0.0) and metallic (1.0).\r
+\r
 """
                     hidden = false
                     renderType = "float"
@@ -437,8 +437,8 @@ def Xform "World"
                         }
                     }
                     displayName = "Roughness Factor"
-                    doc = """The roughness of the material. Select between very glossy (0.0) and dull (1.0).
-
+                    doc = """The roughness of the material. Select between very glossy (0.0) and dull (1.0).\r
+\r
 """
                     hidden = false
                     renderType = "float"
@@ -647,7 +647,7 @@ def Xform "Environment"
     custom float location:latitude = -27.573862
     custom float location:longitude = 153.0304
     custom float location:north_orientation = 90
-    custom float time:current = 9.168096
+    custom float time:current = 16.113655
 
     def Xform "sky" (
         prepend references = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1/DomeLights/Dynamic/CloudySky.usd@
@@ -661,18 +661,18 @@ def Xform "Environment"
             {
                 over "Shader"
                 {
-                    float inputs:Azimuth = -55.676105
+                    float inputs:Azimuth = 68.45978
                     custom float inputs:CloudCoverage = 0
                     custom bool inputs:CumulusEnabled = 0
                     float inputs:DayOfYear = 100
                     float inputs:Declination = 7.9998345
-                    float inputs:Elevation = 35.40903
+                    float inputs:Elevation = 20.872477
                     custom float inputs:haze = 0
                     float inputs:Latitude = 51.426
                     float inputs:Longitude = -0.985
                     float inputs:NorthOrientation = 0
-                    float inputs:SHA = -42.822033
-                    float inputs:TimeOfDay = 6.93
+                    float inputs:SHA = 61.361362
+                    float inputs:TimeOfDay = 16.113655
                 }
             }
         }
@@ -687,7 +687,7 @@ def Xform "Environment"
 
                 over "AxisSHA"
                 {
-                    double3 xformOp:rotateZYX = (222.82203176969995, 0, 0)
+                    double3 xformOp:rotateZYX = (118.63863924498071, 0, 0)
 
                     over "AxisDeclination"
                     {
@@ -704,11 +704,11 @@ def Xform "Environment"
 
             over "AxisAzimuth"
             {
-                double3 xformOp:rotateZYX = (0, -55.67610447203585, 0)
+                double3 xformOp:rotateZYX = (0, 68.4597772003886, 0)
 
                 over "AxisElevation"
                 {
-                    double3 xformOp:rotateZYX = (0, 0, 35.40902983453279)
+                    double3 xformOp:rotateZYX = (0, 0, 20.87247587266587)
                 }
             }
         }

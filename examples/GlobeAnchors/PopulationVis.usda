@@ -8,7 +8,7 @@
             }
             dictionary Perspective = {
                 double3 position = (0, 500000000, 500000000)
-                double3 target = (-1.1175870895385742e-8, 64432994.70169222, 64432994.701692164)
+                double3 target = (-1.1175870982606429e-8, 64432994.70169222, 64432994.701692164)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -37,7 +37,6 @@
         dictionary renderSettings = {
             float3 "rtx:debugView:pixelDebug:textColor" = (0, 1e18, 0)
             bool "rtx:directLighting:domeLight:enabledInReflections" = 1
-            bool "rtx:fog:enabled" = 1
             float3 "rtx:fog:fogColor" = (0.8901961, 0.7761547, 0.5163138)
             double "rtx:fog:fogColorIntensity" = 0.2
             double "rtx:fog:fogDistanceDensity" = 0.00003
@@ -90,7 +89,6 @@
             float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
             float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
             float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
-            token "rtx:rendermode" = "PathTracing"
             float3 "rtx:sceneDb:ambientLightColor" = (0, 0, 0)
         }
     }
