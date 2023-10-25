@@ -2639,7 +2639,7 @@ def Xform "Root" (
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxM2I2ZjEzMi1jNWNmLTQzNzAtYjNkMi1hNTI3NzRlYjdlZjIiLCJpZCI6MjU5LCJpYXQiOjE2OTA4OTczODB9.ohya-QYuUkbFPi4rR658dgnr2JUHbOrrbpxT6oCbPps"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNzhiNWNjOS1iYmUyLTQ5MTYtODliYy0zMTc3NTJmZTk4MWIiLCJpZCI6MjU5LCJpYXQiOjE2OTYyNzYzNzF9.ooL73wypb9IdmEz4zD3MN87rLtEYo1tEgavGzaC5UM8"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
