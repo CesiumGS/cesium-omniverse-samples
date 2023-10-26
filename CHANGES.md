@@ -1,3 +1,11 @@
+### v0.12.0 - 2023-10-25
+
+- Changed Google Photorealistic Tile samples to go through Cesium ion.
+- Adds samples for Globe Anchors
+- Adds samples for Tileset Clipping
+- Adds samples for Tileset Materials
+- Updates for Cesium for Omniverse v0.12.0
+
 ### v0.11.0 - 2023-10-02
 
 - Updates for Cesium for Omniverse v0.11.0

@@ -442,7 +442,7 @@ def Xform "World"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNzhiNWNjOS1iYmUyLTQ5MTYtODliYy0zMTc3NTJmZTk4MWIiLCJpZCI6MjU5LCJpYXQiOjE2OTYyNzYzNzF9.ooL73wypb9IdmEz4zD3MN87rLtEYo1tEgavGzaC5UM8"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5MTkzYTIwNS1kNmQ0LTRhZDgtOGRlOS1iYmE3MTA4YzMxNDkiLCJpZCI6MjU5LCJpYXQiOjE2OTgyNzc0MzN9.A3DLCHQj7aO5_EqCw_sQrN1R3ngwV57OeKz_-xBfL4s"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
