@@ -98,7 +98,7 @@ def Xform "World"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MTkxNmE1Ni03NzEyLTRmNzYtODcwYi1mOTZkM2RiNDFhYmUiLCJpZCI6MTI5LCJpYXQiOjE2OTU4NDQ0MTR9.r-ZnPKqCxRk9tXBDNYaY1rHHm6Fe4O-HMOJYVITe0do"
+    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5MTkzYTIwNS1kNmQ0LTRhZDgtOGRlOS1iYmE3MTA4YzMxNDkiLCJpZCI6MjU5LCJpYXQiOjE2OTgyNzc0MzN9.A3DLCHQj7aO5_EqCw_sQrN1R3ngwV57OeKz_-xBfL4s"
     string cesium:projectDefaultIonAccessTokenId = ""
 }
 
@@ -119,7 +119,7 @@ def CesiumTilesetPrim "Cesium_Tileset"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
     string cesium:ionAccessToken = ""
-    int64 cesium:ionAssetId = 823
+    int64 cesium:ionAssetId = 2275207
     bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "ion"
     float3[] extent = [(-797267140, -1433976300, -796725700), (797267140, 160558020, 792462400)]
