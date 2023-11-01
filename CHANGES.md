@@ -1,6 +1,11 @@
+### v0.13.0 - 2023-11-01
+
+- Fixed Google Photorealistic 3D Tiles tutorial sample.
+- Updates for Cesium for Omniverse v0.13.0
+
 ### v0.12.0 - 2023-10-25
 
-- Changed Google Photorealistic Tile samples to go through Cesium ion.
+- Changed Google Photorealistic 3D Tiles samples to go through Cesium ion.
 - Adds samples for Globe Anchors
 - Adds samples for Tileset Clipping
 - Adds samples for Tileset Materials
