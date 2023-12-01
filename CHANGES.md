@@ -1,3 +1,7 @@
+### v0.14.0 - 2023-12-01
+
+- Updates for Cesium for Omniverse v0.14.0
+
 ### v0.13.0 - 2023-11-01
 
 - Fixed Google Photorealistic 3D Tiles tutorial sample.
