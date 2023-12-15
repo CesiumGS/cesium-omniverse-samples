@@ -1,3 +1,7 @@
+### v0.15.0 - 2023-12-14
+
+- Updates for Cesium for Omniverse v0.15.0
+
 ### v0.14.0 - 2023-12-01
 
 - Updates for Cesium for Omniverse v0.14.0
