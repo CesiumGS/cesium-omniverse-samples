@@ -182,8 +182,7 @@ def Xform "Environment"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
-    string cesium:projectDefaultIonAccessTokenId = ""
+    rel cesium:selectedIonServer = </CesiumServers/IonOfficial>
 }
 
 def CesiumGeoreferencePrim "CesiumGeoreference"
@@ -196,9 +195,11 @@ def CesiumGeoreferencePrim "CesiumGeoreference"
 def CesiumTilesetPrim "Cesium_World_Terrain"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-638713700, -1273587500, -640783700), (638713700, -436992, 636643800)]
     double3 xformOp:rotateXYZ = (0, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, -100, 0)
@@ -208,15 +209,17 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2
+        rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     }
 }
 
 def CesiumTilesetPrim "Cesium_OSM_Buildings"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 96188
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    uniform token cesium:sourceType = "ion"
     token visibility = "invisible"
 }
 
@@ -229,9 +232,24 @@ over "OmniverseKit_Persp"
 def CesiumTilesetPrim "Aerometrex_San_Francisco_High_Resolution_3D_Model_with_Street_Level_Enhanced_3D_Non_Commercial_Trial_"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1415196
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     float cesium:maximumScreenSpaceError = 4
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-326659.2, -461426.4, -650280.06), (610279.4, 475512.16, 286658.5)]
+}
+
+def "CesiumServers"
+{
+    def CesiumIonServerPrim "IonOfficial"
+    {
+        string cesium:displayName = "ion.cesium.com"
+        string cesium:ionServerApiUrl = "https://api.cesium.com/"
+        int64 cesium:ionServerApplicationId = 413
+        string cesium:ionServerUrl = "https://ion.cesium.com/"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
+        string cesium:projectDefaultIonAccessTokenId = ""
+    }
 }
 

@@ -633,8 +633,7 @@ def Xform "World"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
-    string cesium:projectDefaultIonAccessTokenId = ""
+    rel cesium:selectedIonServer = </CesiumServers/IonOfficial>
 }
 
 def CesiumGeoreferencePrim "CesiumGeoreference"
@@ -729,11 +728,25 @@ def CesiumTilesetPrim "Cesium_Tileset" (
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 2275207
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "ion"
     float3[] extent = [(-797267140, -1434623200, -792840800), (797267140, 159911040, 796347260)]
     rel material:binding = </World/Looks/Clipping> (
         bindMaterialAs = "weakerThanDescendants"
     )
+}
+
+def "CesiumServers"
+{
+    def CesiumIonServerPrim "IonOfficial"
+    {
+        string cesium:displayName = "ion.cesium.com"
+        string cesium:ionServerApiUrl = "https://api.cesium.com/"
+        int64 cesium:ionServerApplicationId = 413
+        string cesium:ionServerUrl = "https://ion.cesium.com/"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
+        string cesium:projectDefaultIonAccessTokenId = ""
+    }
 }
 

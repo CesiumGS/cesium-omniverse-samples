@@ -175,8 +175,7 @@ def Xform "Environment"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
-    string cesium:projectDefaultIonAccessTokenId = ""
+    rel cesium:selectedIonServer = </CesiumServers/IonOfficial>
 }
 
 def CesiumGeoreferencePrim "CesiumGeoreference"
@@ -189,28 +188,46 @@ def CesiumGeoreferencePrim "CesiumGeoreference"
 def CesiumTilesetPrim "Cesium_World_Terrain"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-638713700, -1273587300, -640783700), (638713700, -436864, 636643800)]
 
     def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2
+        rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     }
 }
 
 def CesiumTilesetPrim "Cesium_OSM_Buildings"
 {
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
-    uniform token cesium:sourceType = "ion"
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 96188
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-638410430, -1269061400, -639882700), (638410430, -5889216, 636938200)]
 }
 
 over "OmniverseKit_Persp"
 {
     float2 clippingRange = (1, 10000000000)
     float focalLength = 17
+}
+
+def "CesiumServers"
+{
+    def CesiumIonServerPrim "IonOfficial"
+    {
+        string cesium:displayName = "ion.cesium.com"
+        string cesium:ionServerApiUrl = "https://api.cesium.com/"
+        int64 cesium:ionServerApplicationId = 413
+        string cesium:ionServerUrl = "https://ion.cesium.com/"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
+        string cesium:projectDefaultIonAccessTokenId = ""
+    }
 }
 

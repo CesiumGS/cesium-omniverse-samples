@@ -1900,8 +1900,6 @@ def Xform "Root" (
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
-    string cesium:projectDefaultIonAccessTokenId = ""
 }
 
 def CesiumGeoreferencePrim "CesiumGeoreference"

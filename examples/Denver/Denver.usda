@@ -244,8 +244,7 @@ def Xform "Environment"
 
 def CesiumDataPrim "Cesium"
 {
-    string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
-    string cesium:projectDefaultIonAccessTokenId = ""
+    rel cesium:selectedIonServer = </CesiumServers/IonOfficial>
 }
 
 def CesiumGeoreferencePrim "CesiumGeoreference"
@@ -260,6 +259,7 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 1
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     uniform token cesium:sourceType = "ion"
     float3[] extent = [(-638713700, -1273666800, -640816060), (638713700, -516352, 636611400)]
     token visibility = "inherited"
@@ -272,6 +272,7 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2
+        rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     }
 }
 
@@ -286,10 +287,24 @@ def CesiumTilesetPrim "Aerometrex_Denver_High_Resolution_3D_Model_with_Street_Le
     prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 354307
+    rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     float cesium:maximumScreenSpaceError = 4
     bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "ion"
     float3[] extent = [(-436150.88, -362711.66, -497160.66), (310803.56, 384242.78, 249793.78)]
     token visibility = "inherited"
+}
+
+def "CesiumServers"
+{
+    def CesiumIonServerPrim "IonOfficial"
+    {
+        string cesium:displayName = "ion.cesium.com"
+        string cesium:ionServerApiUrl = "https://api.cesium.com/"
+        int64 cesium:ionServerApplicationId = 413
+        string cesium:ionServerUrl = "https://ion.cesium.com/"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkOWU3ZmQwMy0xOTk0LTQxYWYtOGMyMS1mMmU1M2Y0OTIwYzIiLCJpZCI6MjU5LCJpYXQiOjE3MDE0NjU2NTR9.Mzoe5jyZfE3O52ZSJGtfsceQIlT_1JMwPE7PnGYKm-k"
+        string cesium:projectDefaultIonAccessTokenId = ""
+    }
 }
 
