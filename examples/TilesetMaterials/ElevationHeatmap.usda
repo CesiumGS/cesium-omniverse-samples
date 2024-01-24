@@ -221,19 +221,19 @@ def Xform "World"
                 uniform token ui:nodegraph:node:expansionState = "open"
             }
 
-            def Shader "cesium_imagery_layer_float4" (
+            def Shader "cesium_raster_overlay_float4" (
                 prepend apiSchemas = ["NodeGraphNodeAPI"]
             )
             {
                 uniform token info:implementationSource = "sourceAsset"
                 uniform asset info:mdl:sourceAsset = @cesium.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_imagery_layer_float4"
-                token inputs:imagery_layer (
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_raster_overlay_float4"
+                token inputs:raster_overlay (
                     connectability = "interfaceOnly"
                     hidden = true
                     renderType = "gltf_texture_lookup_value"
                 )
-                int inputs:imagery_layer_index (
+                int inputs:raster_overlay_index (
                     customData = {
                         int default = 0
                     }
@@ -285,7 +285,7 @@ def Xform "World"
                     hidden = false
                     renderType = "float4"
                 )
-                float4 inputs:a.connect = </World/Looks/OmniPBR_Terrain/cesium_imagery_layer_float4.outputs:out>
+                float4 inputs:a.connect = </World/Looks/OmniPBR_Terrain/cesium_raster_overlay_float4.outputs:out>
                 float3 outputs:out (
                     renderType = "float3"
                 )
@@ -409,8 +409,9 @@ def CesiumTilesetPrim "Cesium_World_Terrain" (
     rel material:binding = </World/Looks/OmniPBR_Terrain> (
         bindMaterialAs = "weakerThanDescendants"
     )
+    prepend rel cesium:rasterOverlayBinding = </Cesium_World_Terrain/Bing_Maps_Aerial_imagery>
 
-    def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
+    def CesiumIonRasterOverlayPrim "Bing_Maps_Aerial_imagery"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2

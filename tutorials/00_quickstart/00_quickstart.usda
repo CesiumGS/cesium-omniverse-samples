@@ -193,8 +193,9 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     uniform token cesium:sourceType = "ion"
     float3[] extent = [(-638713700, -1273587300, -640783700), (638713700, -436864, 636643800)]
+    prepend rel cesium:rasterOverlayBinding = </Cesium_World_Terrain/Bing_Maps_Aerial_imagery>
 
-    def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
+    def CesiumIonRasterOverlayPrim "Bing_Maps_Aerial_imagery"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2

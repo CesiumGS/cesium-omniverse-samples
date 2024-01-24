@@ -8,7 +8,7 @@
             }
             dictionary Perspective = {
                 double3 position = (265819.19125579984, 504.5147706109524, -181149.67115281403)
-                double3 target = (255589.38526739719, -2037.7226735810464, -183401.82349178477)
+                double3 target = (255589.38526739719, -2037.7226735810473, -183401.82349178477)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -98,17 +98,15 @@ def Xform "World"
         prepend payload = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Plant_Tropical/Cuban_Royal_Palm.usd@
     )
     {
-        double3 cesium:anchor:geographicCoordinates = (37.7913, -122.39032, -28.88791)
         prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
-        double3 cesium:anchor:position = (-2703402.189906512, -4261471.435157978, 3887146.4162855553)
-        double3 cesium:anchor:rotation = (47.43848419189453, -25.044580459594727, -21.260974884033203)
-        double3 cesium:anchor:scale = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double xformOp:rotateX:unitsResolve = -90
-        float3 xformOp:rotateXYZ = (0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        matrix4d xformOp:transform:cesium = ( (0.9999998972028922, -0.0004011118535415147, 5.045745107574561e-8, 0), (-6.43950214818112e-8, -0.00028633524975624214, -0.9999999366543166, 0), (0.00040111185154606543, 0.9999998562089508, -0.00028633525255150616, 0), (256137.76995182037, -2966.2198885679245, -182066.48429769278, 1) )
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
+        double cesium:anchor:height = -28.88790999712539
+        double cesium:anchor:latitude = 37.791300000000014
+        double cesium:anchor:longitude = -122.39032000000002
+        double3 cesium:anchor:position = (-2703402.189906513, -4261471.435157979, 3887146.4162855567)
+        double3 xformOp:rotateXYZ = (-90, 0, 0)
+        double3 xformOp:scale = (0.9999999999999961, 0.9999999999999831, 0.9999999999999811)
+        double3 xformOp:translate = (256137.76995179057, -2966.219888448715, -182066.48429769278)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
     }
 
     def Xform "tree_02" (
@@ -116,17 +114,15 @@ def Xform "World"
         prepend payload = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Plant_Tropical/Cuban_Royal_Palm.usd@
     )
     {
-        double3 cesium:anchor:geographicCoordinates = (37.79114, -122.39018, -28.88791)
         prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
-        double3 cesium:anchor:position = (-2703397.606610751, -4261487.230029306, 3887132.3824729566)
-        double3 cesium:anchor:rotation = (47.43869400024414, -25.04453468322754, -21.260887145996094)
-        double3 cesium:anchor:scale = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double xformOp:rotateX:unitsResolve = -90
-        float3 xformOp:rotateXYZ = (0, 0, 0)
+        double cesium:anchor:height = -28.887909998926833
+        double cesium:anchor:latitude = 37.79113999999999
+        double cesium:anchor:longitude = -122.39018
+        double3 cesium:anchor:position = (-2703397.6066107517, -4261487.230029307, 3887132.3824729575)
+        float3 xformOp:rotateXYZ = (-90, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        matrix4d xformOp:transform:cesium = ( (0.9999998964261534, -0.0004030436662491352, 5.017129928842163e-8, 0), (-6.410905173392933e-8, -0.0002835433250473196, -0.9999999374498458, 0), (0.0004030436642729063, 0.999999856227741, -0.0002835433278560173, 0), (257371.45026627183, -2966.210052371025, -180290.99635195732, 1) )
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
+        double3 xformOp:translate = (257371.45026621222, -2966.210052251816, -180290.99635195732)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
     }
 
     def Xform "tree_03" (
@@ -134,17 +130,15 @@ def Xform "World"
         prepend payload = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Plant_Tropical/Cuban_Royal_Palm.usd@
     )
     {
-        double3 cesium:anchor:geographicCoordinates = (37.79147, -122.39042, -28.88791)
         prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
-        double3 cesium:anchor:position = (-2703403.4337169975, -4261456.95326097, 3887161.327178562)
-        double3 cesium:anchor:rotation = (47.43828201293945, -25.044591903686523, -21.261062622070312)
-        double3 cesium:anchor:scale = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double xformOp:rotateX:unitsResolve = -90
-        float3 xformOp:rotateXYZ = (0, 0, 0)
+        double cesium:anchor:height = -28.887909997333825
+        double cesium:anchor:latitude = 37.79146999999999
+        double cesium:anchor:longitude = -122.39042
+        double3 cesium:anchor:position = (-2703403.4337169984, -4261456.953260971, 3887161.3271785625)
+        float3 xformOp:rotateXYZ = (-90, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        matrix4d xformOp:transform:cesium = ( (0.9999998977555393, -0.0003997316910541529, 5.0852863321335096e-8, 0), (-6.479027675476701e-8, -0.0002893018810705694, -0.999999935800465, 0), (0.0003997316890380631, 0.9999998559077463, -0.00028930188385600797, 0), (255256.38131523132, -2966.4099085330963, -183953.07524228096, 1) )
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
+        double3 xformOp:translate = (255256.38131523132, -2966.4099085330963, -183953.07524228096)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
     }
 
     def Xform "tree_04" (
@@ -152,17 +146,15 @@ def Xform "World"
         prepend payload = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Plant_Tropical/Cuban_Royal_Palm.usd@
     )
     {
-        double3 cesium:anchor:geographicCoordinates = (37.79167, -122.39053, -28.88791)
         prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
+        double cesium:anchor:height = -28.88790999904918
+        double cesium:anchor:latitude = 37.791669999999996
+        double cesium:anchor:longitude = -122.39052999999998
         double3 cesium:anchor:position = (-2703404.3281798274, -4261440.276511508, 3887178.869362261)
-        double3 cesium:anchor:rotation = (47.43803787231445, -25.044599533081055, -21.26116371154785)
-        double3 cesium:anchor:scale = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double xformOp:rotateX:unitsResolve = -90
-        float3 xformOp:rotateXYZ = (0, 0, 0)
+        float3 xformOp:rotateXYZ = (-90, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        matrix4d xformOp:transform:cesium = ( (0.9999998983612763, -0.00039821344958664603, 5.132825798867904e-8, 0), (-6.526549217733546e-8, -0.00029279206999444085, -0.999999934784656, 0), (0.0003982134475462584, 0.9999998554976741, -0.0002927920727693323, 0), (254286.81392076612, -2966.669009208679, -186172.61606276035, 1) )
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
+        double3 xformOp:translate = (254286.81392076612, -2966.669009208679, -186172.61606276035)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
     }
 }
 
@@ -330,9 +322,10 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     int64 cesium:ionAssetId = 1
     rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     uniform token cesium:sourceType = "ion"
-    float3[] extent = [(-638713700, -1273587300, -640783700), (638713700, -436864, 636643800)]
+    float3[] extent = [(-881590400, -1723782900, -1045261700), (881590400, 449758660, 1041121800)]
+    prepend rel cesium:rasterOverlayBinding = </Cesium_World_Terrain/Bing_Maps_Aerial_imagery>
 
-    def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
+    def CesiumIonRasterOverlayPrim "Bing_Maps_Aerial_imagery"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2
@@ -347,7 +340,7 @@ def CesiumTilesetPrim "Cesium_OSM_Buildings"
     int64 cesium:ionAssetId = 96188
     rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     uniform token cesium:sourceType = "ion"
-    float3[] extent = [(-638410430, -1269061400, -639882700), (638410430, -5889216, 636938200)]
+    float3[] extent = [(-881167170, -1720855400, -1040461250), (881167170, 445904770, 1037516740)]
 }
 
 over "OmniverseKit_Persp"

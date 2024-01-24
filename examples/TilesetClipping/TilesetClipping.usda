@@ -607,16 +607,15 @@ def Xform "World"
         prepend apiSchemas = ["CesiumGlobeAnchorSchemaAPI"]
     )
     {
-        double3 cesium:anchor:geographicCoordinates = (-27.573861199999993, 153.0304, 34.8)
+        double cesium:anchor:latitude = -27.573861199999993
+        double cesium:anchor:longitude = 153.0304
+        double cesium:anchor:height = 34.8
         prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
         double3 cesium:anchor:position = (-5042467.961831735, 2565896.646461865, -2934743.8854108783)
-        double3 cesium:anchor:rotation = (166.67613220214844, 24.365182876586914, 119.85850524902344)
-        double3 cesium:anchor:scale = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (0, 3480, 0)
         double3 xformOp:rotateXYZ = (0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        matrix4d xformOp:transform:cesium = ( (0.9999999776482575, -2.6738269567318323e-9, 3.9879286934363316e-8, 0), (2.673828174566775e-9, 0.9999999776482582, -3.078844112991419e-8, 0), (-3.9879286759468575e-8, 3.0788441351958795e-8, 0.9999999776482573, 0), (2.980232784551177e-7, 3480, -1.1920928955078125e-7, 1) )
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:transform:cesium"]
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 
         def "BoundaryRdDesign" (
             prepend payload = @resources/BoundaryRdDesign.usda@

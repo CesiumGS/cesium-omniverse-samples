@@ -272,8 +272,9 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, -100, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    prepend rel cesium:rasterOverlayBinding = </Cesium_World_Terrain/Bing_Maps_Aerial_imagery>
 
-    def CesiumImageryPrim "Bing_Maps_Aerial_imagery"
+    def CesiumIonRasterOverlayPrim "Bing_Maps_Aerial_imagery"
     {
         string cesium:ionAccessToken = ""
         int64 cesium:ionAssetId = 2
