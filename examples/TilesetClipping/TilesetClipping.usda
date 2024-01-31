@@ -7,8 +7,8 @@
                 double radius = 500
             }
             dictionary Perspective = {
-                double3 position = (45218.78254726048, 9489.4130807436, -45776.20420252356)
-                double3 target = (291110.74941738916, -26701.482604735837, -12113.862276983811)
+                double3 position = (19812.101666989733, 18018.55230539546, -24235.545917213563)
+                double3 target = (286284.68710192747, -66219.35619115151, -161980.9787625618)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -87,534 +87,19 @@
 
 def Xform "World"
 {
-    def Scope "Looks"
-    {
-        def Material "ClippedTerrain"
-        {
-            token outputs:mdl:displacement.connect = </World/Looks/ClippedTerrain/Shader.outputs:out>
-            token outputs:mdl:surface.connect = </World/Looks/ClippedTerrain/Shader.outputs:out>
-            token outputs:mdl:volume.connect = </World/Looks/ClippedTerrain/Shader.outputs:out>
-            uniform token ui:nodegraph:node:expansionState = "open"
-
-            def Shader "Shader"
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
-                color3f inputs:diffuse_color_constant = (0.2, 0.2, 0.2) (
-                    customData = {
-                        float3 default = (0.2, 0.2, 0.2)
-                    }
-                    displayGroup = "Albedo"
-                    displayName = "Albedo Color"
-                    doc = """This is the albedo base color\r
-\r
-"""
-                    hidden = false
-                    renderType = "color"
-                )
-                color3f inputs:diffuse_color_constant.connect = </World/Looks/ClippedTerrain/construct_color.outputs:out>
-                bool inputs:enable_opacity = 1 (
-                    customData = {
-                        bool default = 0
-                    }
-                    displayGroup = "Opacity"
-                    displayName = "Enable Opacity"
-                    doc = """Enables the use of cutout opacity\r
-\r
-"""
-                    hidden = false
-                )
-                float inputs:opacity_constant = 1 (
-                    customData = {
-                        float default = 1
-                        dictionary range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayGroup = "Opacity"
-                    displayName = "Opacity Amount"
-                    doc = """Opacity value between 0 and 1, when Opacity Map is not valid\r
-\r
-"""
-                    hidden = false
-                )
-                float inputs:opacity_constant.connect = </World/Looks/ClippedTerrain/x.outputs:out>
-                float inputs:reflection_roughness_constant = 1 (
-                    customData = {
-                        float default = 0.5
-                        dictionary range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayGroup = "Reflectivity"
-                    displayName = "Roughness Amount"
-                    doc = """Higher roughness values lead to more blurry reflections\r
-\r
-"""
-                    hidden = false
-                )
-                float inputs:specular_level = 0.5 (
-                    customData = {
-                        float default = 0.5
-                        dictionary soft_range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayGroup = "Reflectivity"
-                    displayName = "Specular"
-                    doc = """The specular level (intensity) of the material\r
-\r
-"""
-                    hidden = false
-                )
-                token outputs:out (
-                    renderType = "material"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-            }
-
-            def Shader "cesium_base_color_texture_float4" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @cesium.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_base_color_texture_float4"
-                token inputs:base_color_texture (
-                    connectability = "interfaceOnly"
-                    hidden = true
-                    renderType = "gltf_texture_lookup_value"
-                )
-                float4 outputs:out (
-                    renderType = "float4"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-1242.064, 2.630165)
-            }
-
-            def Shader "xyz" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "xyz(float4)"
-                float4 inputs:a (
-                    customData = {
-                        float4 default = (0, 0, 0, 0)
-                    }
-                    hidden = false
-                    renderType = "float4"
-                )
-                float4 inputs:a.connect = </World/Looks/ClippedTerrain/cesium_base_color_texture_float4.outputs:out>
-                float3 outputs:out (
-                    renderType = "float3"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-1011.68164, -12.780031)
-            }
-
-            def Shader "construct_color" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "construct_color(float3)"
-                float3 inputs:a (
-                    customData = {
-                        float3 default = (0, 0, 0)
-                    }
-                    hidden = false
-                    renderType = "float3"
-                )
-                float3 inputs:a.connect = </World/Looks/ClippedTerrain/xyz.outputs:out>
-                color3f outputs:out (
-                    renderType = "color"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-774.3646, 28.82751)
-            }
-
-            def Shader "x" (
-                apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "x(float3)"
-                float3 inputs:a (
-                    customData = {
-                        float3 default = (0, 0, 0)
-                    }
-                    hidden = false
-                    renderType = "float3"
-                )
-                float3 inputs:a.connect = </World/Looks/ClippedTerrain/cesium_lookup_world_texture_float3.outputs:out>
-                bool inputs:excludeFromWhiteMode = 0 (
-                    customData = {
-                        bool default = 0
-                    }
-                    displayGroup = "Material Flags"
-                    displayName = "Exclude from White Mode"
-                    hidden = false
-                )
-                float outputs:out (
-                    renderType = "float"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-888.4769, 336.17453)
-            }
-
-            def Shader "cesium_lookup_world_texture_float3" (
-                apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                reorder properties = ["inputs:texture", "inputs:min_world", "inputs:max_world", "inputs:up_axis"]
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @cesium.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_lookup_world_texture_float3"
-                bool inputs:excludeFromWhiteMode = 0 (
-                    customData = {
-                        bool default = 0
-                    }
-                    displayGroup = "Material Flags"
-                    displayName = "Exclude from White Mode"
-                    hidden = false
-                )
-                float2 inputs:max_world = (139000, -72000) (
-                    customData = {
-                        float2 default = (5000, 5000)
-                    }
-                    hidden = false
-                    renderType = "float2"
-                )
-                float2 inputs:min_world = (29000, -2000) (
-                    customData = {
-                        float2 default = (-5000, -5000)
-                    }
-                    hidden = false
-                    renderType = "float2"
-                )
-                asset inputs:texture = @resources/Materials/Material__18/footprint_clipping.png@ (
-                    colorSpace = "sRGB"
-                    customData = {
-                        asset default = @@
-                    }
-                    hidden = false
-                    renderType = "texture_2d"
-                )
-                int inputs:up_axis (
-                    customData = {
-                        int default = 0
-                    }
-                    hidden = false
-                    renderType = "up_axis_mode"
-                    sdrMetadata = {
-                        string __SDR__enum_value = "Y"
-                        string options = "Y:0|Z:1"
-                    }
-                )
-                float3 outputs:out (
-                    renderType = "float3"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-1166.31, 158.99193)
-            }
-        }
-
-        def Material "Clipping"
-        {
-            token outputs:displacement.connect = </World/Looks/Clipping/cesium_material.outputs:out>
-            token outputs:mdl:displacement
-            token outputs:mdl:surface
-            token outputs:mdl:volume
-            token outputs:surface.connect = </World/Looks/Clipping/cesium_material.outputs:out>
-            token outputs:volume.connect = </World/Looks/Clipping/cesium_material.outputs:out>
-            uniform token ui:nodegraph:node:expansionState = "open"
-
-            def Shader "cesium_material" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @cesium.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_material"
-                float inputs:alpha_cutoff (
-                    customData = {
-                        float default = 0.5
-                        dictionary range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayName = "Alpha Cutoff"
-                    doc = """Threshold to decide between fully transparent and fully opaque when alpha mode is 'mask'.\r
-\r
-"""
-                    hidden = false
-                    renderType = "float"
-                )
-                int inputs:alpha_mode = 1 (
-                    customData = {
-                        int default = 0
-                    }
-                    displayName = "Alpha Mode"
-                    doc = """Select how to interpret the alpha value.\r
-\r
-"""
-                    hidden = false
-                    renderType = "gltf_alpha_mode"
-                    sdrMetadata = {
-                        string __SDR__enum_value = "opaque"
-                        string options = "opaque:0|mask:1|blend:2"
-                    }
-                )
-                float inputs:base_alpha (
-                    customData = {
-                        float default = 1
-                        dictionary range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayName = "Base Alpha"
-                    doc = """Select between transparent (0.0) and opaque (1.0).\r
-\r
-"""
-                    hidden = false
-                    renderType = "float"
-                )
-                float inputs:base_alpha.connect = </World/Looks/Clipping/x.outputs:out>
-                color3f inputs:base_color_factor (
-                    customData = {
-                        float3 default = (1, 1, 1)
-                    }
-                    displayName = "Base Color Factor"
-                    doc = """The base color of the material.\r
-\r
-"""
-                    hidden = false
-                    renderType = "color"
-                )
-                color3f inputs:base_color_factor.connect = </World/Looks/Clipping/construct_color.outputs:out>
-                color3f inputs:emissive_factor (
-                    customData = {
-                        float3 default = (0, 0, 0)
-                    }
-                    displayName = "Emissive Factor"
-                    doc = """The emissive color of the material.\r
-\r
-"""
-                    hidden = false
-                    renderType = "color"
-                )
-                float inputs:metallic_factor (
-                    customData = {
-                        float default = 0
-                        dictionary range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayName = "Metallic Factor"
-                    doc = """The metalness of the material. Select between dielectric (0.0) and metallic (1.0).\r
-\r
-"""
-                    hidden = false
-                    renderType = "float"
-                )
-                float inputs:roughness_factor (
-                    customData = {
-                        float default = 1
-                        dictionary range = {
-                            float max = 1
-                            float min = 0
-                        }
-                    }
-                    displayName = "Roughness Factor"
-                    doc = """The roughness of the material. Select between very glossy (0.0) and dull (1.0).\r
-\r
-"""
-                    hidden = false
-                    renderType = "float"
-                )
-                token outputs:out (
-                    renderType = "material"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-442.5377, -15.757042)
-            }
-
-            def Shader "cesium_base_color_texture_float4" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @cesium.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_base_color_texture_float4"
-                token inputs:base_color_texture (
-                    connectability = "interfaceOnly"
-                    hidden = true
-                    renderType = "gltf_texture_lookup_value"
-                )
-                float4 outputs:out (
-                    renderType = "float4"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-1162.5325, -27.612782)
-            }
-
-            def Shader "xyz" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "xyz(float4)"
-                float4 inputs:a (
-                    customData = {
-                        float4 default = (0, 0, 0, 0)
-                    }
-                    hidden = false
-                    renderType = "float4"
-                )
-                float4 inputs:a.connect = </World/Looks/Clipping/cesium_base_color_texture_float4.outputs:out>
-                float3 outputs:out (
-                    renderType = "float3"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-953.671, -28.619308)
-            }
-
-            def Shader "construct_color" (
-                prepend apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "construct_color(float3)"
-                float3 inputs:a (
-                    customData = {
-                        float3 default = (0, 0, 0)
-                    }
-                    hidden = false
-                    renderType = "float3"
-                )
-                float3 inputs:a.connect = </World/Looks/Clipping/xyz.outputs:out>
-                color3f outputs:out (
-                    renderType = "color"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-742.8816, -26.804672)
-            }
-
-            def Shader "cesium_lookup_world_texture_float3" (
-                apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                reorder properties = ["inputs:texture", "inputs:min_world", "inputs:max_world", "inputs:up_axis"]
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @cesium.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_lookup_world_texture_float3"
-                bool inputs:excludeFromWhiteMode = 0 (
-                    customData = {
-                        bool default = 0
-                        token remappedFrom = ""
-                    }
-                    displayGroup = "Material Flags"
-                    displayName = "Exclude from White Mode"
-                    hidden = false
-                )
-                float2 inputs:max_world = (139000, -72000) (
-                    customData = {
-                        float2 default = (5000, 5000)
-                    }
-                    hidden = false
-                    renderType = "float2"
-                )
-                float2 inputs:min_world = (29000, -2000) (
-                    customData = {
-                        float2 default = (-5000, -5000)
-                    }
-                    hidden = false
-                    renderType = "float2"
-                )
-                asset inputs:texture = @resources/Materials/Material__18/footprint_clipping.png@ (
-                    colorSpace = "sRGB"
-                    customData = {
-                        asset default = @@
-                    }
-                    hidden = false
-                    renderType = "texture_2d"
-                )
-                int inputs:up_axis (
-                    customData = {
-                        int default = 0
-                    }
-                    hidden = false
-                    renderType = "up_axis_mode"
-                    sdrMetadata = {
-                        string __SDR__enum_value = "Y"
-                        string options = "Y:0|Z:1"
-                    }
-                )
-                float3 outputs:out (
-                    renderType = "float3"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-1166.31, 158.99193)
-            }
-
-            def Shader "x" (
-                apiSchemas = ["NodeGraphNodeAPI"]
-            )
-            {
-                uniform token info:implementationSource = "sourceAsset"
-                uniform asset info:mdl:sourceAsset = @nvidia/aux_definitions.mdl@
-                uniform token info:mdl:sourceAsset:subIdentifier = "x(float3)"
-                float3 inputs:a (
-                    customData = {
-                        float3 default = (0, 0, 0)
-                    }
-                    hidden = false
-                    renderType = "float3"
-                )
-                float3 inputs:a.connect = </World/Looks/Clipping/cesium_lookup_world_texture_float3.outputs:out>
-                bool inputs:excludeFromWhiteMode = 0 (
-                    customData = {
-                        bool default = 0
-                        token remappedFrom = ""
-                    }
-                    displayGroup = "Material Flags"
-                    displayName = "Exclude from White Mode"
-                    hidden = false
-                )
-                float outputs:out (
-                    renderType = "float"
-                )
-                uniform token ui:nodegraph:node:expansionState = "open"
-                uniform float2 ui:nodegraph:node:pos = (-888.4769, 336.17453)
-            }
-        }
-    }
-
     def Xform "BoundardRd_Anchor" (
         prepend apiSchemas = ["CesiumGlobeAnchorSchemaAPI"]
     )
     {
-        double cesium:anchor:latitude = -27.573861199999993
-        double cesium:anchor:longitude = 153.0304
-        double cesium:anchor:height = 34.8
         prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
-        double3 cesium:anchor:position = (-5042467.961831735, 2565896.646461865, -2934743.8854108783)
-        double3 xformOp:translate = (0, 3480, 0)
-        double3 xformOp:rotateXYZ = (0, 0, 0)
-        double3 xformOp:scale = (1, 1, 1)
+        double cesium:anchor:height = 40.00000000012826
+        double cesium:anchor:latitude = -27.573861199999993
+        double cesium:anchor:longitude = 153.03040000000001
+        double3 cesium:anchor:position = (-5042472.06990879, 2565898.736886875, -2934746.2924476853)
+        token visibility = "inherited"
+        double3 xformOp:rotateXYZ = (8.936356112271342e-7, -2.3095630966712806e-15, 1.2060691195919771e-15)
+        double3 xformOp:scale = (1, 0.9999999999999999, 0.9999999999999999)
+        double3 xformOp:translate = (2.682209642227803e-7, 4000.0000001192093, -8.940696716308594e-8)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 
         def "BoundaryRdDesign" (
@@ -672,7 +157,7 @@ def Xform "Environment"
                     float inputs:Longitude = -0.985
                     float inputs:NorthOrientation = 0
                     float inputs:SHA = 61.361362
-                    float inputs:TimeOfDay = 16.113655
+                    float inputs:TimeOfDay = 6.93
                 }
             }
         }
@@ -728,12 +213,25 @@ def CesiumTilesetPrim "Cesium_Tileset" (
     string cesium:ionAccessToken = ""
     int64 cesium:ionAssetId = 2275207
     rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    prepend rel cesium:rasterOverlayBinding = </Cesium_Tileset/polygon_raster_overlay>
     bool cesium:showCreditsOnScreen = 1
     uniform token cesium:sourceType = "ion"
-    float3[] extent = [(-797267140, -1434623200, -792840800), (797267140, 159911040, 796347260)]
-    rel material:binding = </World/Looks/Clipping> (
+    float3[] extent = [(-1072136900, -1955525100, -1198870000), (1072136900, 680812900, 1202376400)]
+    rel material:binding = None (
         bindMaterialAs = "weakerThanDescendants"
     )
+    token visibility = "inherited"
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+    def CesiumPolygonRasterOverlayPrim "polygon_raster_overlay"
+    {
+        rel cesium:cartographicPolygonBinding = </CesiumCartographicPolygons/BoundardRd_Anchor_polygon_0>
+        bool cesium:invertSelection = 0
+        uniform token cesium:overlayRenderMethod = "clip"
+    }
 }
 
 def "CesiumServers"
@@ -746,6 +244,31 @@ def "CesiumServers"
         string cesium:ionServerUrl = "https://ion.cesium.com/"
         string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkZGM4NWEyZC01ZTIxLTRkNDQtOTQzYS02NWZiODc5YTQxOTIiLCJpZCI6MjU5LCJpYXQiOjE3MDQyMDQ5MTN9.xOGuCBTMV66OCBDuMADUgrV7O1zM22OcaKGl-uev61E"
         string cesium:projectDefaultIonAccessTokenId = ""
+    }
+}
+
+def "CesiumCartographicPolygons"
+{
+    def BasisCurves "BoundardRd_Anchor_polygon_0" (
+        prepend apiSchemas = ["CesiumGlobeAnchorSchemaAPI"]
+    )
+    {
+        uniform token basis = "bezier"
+        prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
+        double cesium:anchor:height = 0.059099322002788966
+        double cesium:anchor:latitude = -27.5703309052909
+        double cesium:anchor:longitude = 153.03824797143255
+        double3 cesium:anchor:position = (-5042953.317310236, 2565274.076202684, -2934381.0321042715)
+        int[] curveVertexCounts = [1330]
+        point3f[] points = [(143.57913, 0, -9227.602), (-287.63434, 0, -6582.509), (-562.94556, 0, -4894.2827), (-805.3566, 0, -3406.2786), (-5760.417, 0, -4220.8896), (-9131.58, 0, -4775.0205), (-9397.341, 0, -5083.001), (-9397.37, 0, -5083.015), (-9397.391, 0, -5083.0596), (-9554.921, 0, -5265.618), (-11699.994, 0, -7751.463), (-14410.813, 0, -11752.397), (-14862.865, 0, -12417.353), (-14903.338, 0, -12476.88), (-14903.367, 0, -12476.883), (-14903.364, 0, -12476.918), (-15414.069, 0, -13228.142), (-15730.265, 0, -14001.677), (-16478.666, 0, -15837.37), (-16497.148, 0, -15882.701), (-16497.186, 0, -15882.743), (-16497.178, 0, -15882.778), (-16986.283, 0, -17082.463), (-16986.383, 0, -17082.7), (-16986.402, 0, -17082.713), (-16986.393, 0, -17082.725), (-17006.473, 0, -17131.986), (-17601.303, 0, -18590.99), (-17602.531, 0, -18591.566), (-17638.684, 0, -18580.143), (-17860.178, 0, -19292.977), (-19225.525, 0, -23951.303), (-21295.674, 0, -30923.344), (-21296.633, 0, -30924.059), (-22698.273, 0, -30924.498), (-22699.234, 0, -30923.215), (-19616.396, 0, -20449.021), (-19616.383, 0, -20449.014), (-19616.395, 0, -20449.01), (-19184.307, 0, -19040.148), (-19184.293, 0, -19040.14), (-19184.305, 0, -19040.137), (-18381.209, 0, -16527.191), (-18381.152, 0, -16527.162), (-18381.193, 0, -16527.143), (-18099.889, 0, -15780.439), (-18099.854, 0, -15780.424), (-18099.877, 0, -15780.412), (-18097.07, 0, -15773.564), (-18139.201, 0, -15847.822), (-18464.533, 0, -16492.688), (-18742.404, 0, -17120.021), (-19676.43, 0, -19395.793), (-19952.951, 0, -20109.66), (-20175.367, 0, -20744.453), (-20911.912, 0, -23008.865), (-21267.055, 0, -24261.223), (-22736.979, 0, -29994.84), (-22973.422, 0, -30923.83), (-22974.39, 0, -30924.584), (-24005.94, 0, -30924.9), (-24006.91, 0, -30923.654), (-23707.531, 0, -29747.402), (-23707.508, 0, -29747.408), (-23707.531, 0, -29747.4), (-22236.072, 0, -24007.826), (-22236.043, 0, -24007.809), (-22236.064, 0, -24007.8), (-21868.598, 0, -22712.287), (-21868.553, 0, -22712.264), (-21868.586, 0, -22712.252), (-21126.154, 0, -20429.48), (-21126.129, 0, -20429.469), (-21126.146, 0, -20429.459), (-20892.736, 0, -19763.242), (-20892.7, 0, -19763.225), (-20892.725, 0, -19763.213), (-20604.713, 0, -19019.639), (-20604.688, 0, -19019.629), (-20604.705, 0, -19019.621), (-20109.037, 0, -17811.9), (-20253.414, 0, -17769.545), (-20254.062, 0, -17768.217), (-19665.537, 0, -16277.324), (-17642.154, 0, -12475.599), (-15972.825, 0, -9970.936), (-14895.072, 0, -8534.8125), (-14905.799, 0, -8526.008), (-14907.998, 0, -8528.208), (-14908.171, 0, -8528.237), (-14908.164, 0, -8528.343), (-14995.615, 0, -8584.599), (-14995.918, 0, -8584.449), (-14996.219, 0, -8584.756), (-15096.176, 0, -8578.539), (-15096.329, 0, -8578.151), (-15096.82, 0, -8578.249), (-15146.82, 0, -8528.282), (-15146.817, 0, -8528.235), (-15146.861, 0, -8528.239), (-15196.855, 0, -8472.029), (-15234.367, 0, -8428.293), (-15234.342, 0, -8428.232), (-15234.4, 0, -8428.252), (-15296.9, 0, -8347.054), (-15296.896, 0, -8347.004), (-15296.939, 0, -8346.999), (-15309.439, 0, -8328.261), (-15309.325, 0, -8327.804), (-15309.605, 0, -8327.78), (-15316.973, 0, -8228.223), (-15396.766, 0, -8156.177), (-15432.903, 0, -8128.59), (-15696.65, 0, -7906.1934), (-15796.483, 0, -7853.9575), (-15858.918, 0, -7829.0073), (-15858.939, 0, -7828.9565), (-15858.989, 0, -7828.975), (-15896.401, 0, -7810.5005), (-15996.035, 0, -7780.7363), (-16095.732, 0, -7804.1343), (-16096.7295, 0, -7803.8013), (-16159.224, 0, -7728.85), (-16159.205, 0, -7728.8237), (-16159.255, 0, -7728.81), (-16196.712, 0, -7678.9004), (-16296.656, 0, -7579.021), (-16296.6455, 0, -7578.913), (-16296.749, 0, -7578.9136), (-16334.249, 0, -7528.9443), (-16334.165, 0, -7528.5635), (-16334.447, 0, -7528.4067), (-16340.728, 0, -7428.449), (-16340.453, 0, -7428.2256), (-16340.594, 0, -7427.8833), (-16309.057, 0, -7373.783), (-16507.268, 0, -7211.028), (-17110.143, 0, -8056.7476), (-17110.795, 0, -8057.1533), (-19696.512, 0, -8484.793), (-23815.287, 0, -9166.021), (-29158.295, 0, -10049.512), (-29159.445, 0, -10048.689), (-29164.383, 0, -10019.061), (-29353.482, 0, -8876.451), (-30747.297, 0, -9133.023), (-30748.46, 0, -9132.221), (-30751.223, 0, -9117.18), (-31535.3, 0, -9265.887), (-31536.475, 0, -9265.066), (-31984.398, 0, -6534.2236), (-32063.637, 0, -6358.7324), (-32089.01, 0, -6362.705), (-32089.01, 0, -6363.2256), (-32089.76, 0, -6363.5303), (-32089.91, 0, -6364.2207), (-32889.54, 0, -6444.824), (-33476.75, 0, -6535.0757), (-33476.773, 0, -6535.047), (-33476.77, 0, -6535.078), (-33689.176, 0, -6563.8687), (-33689.766, 0, -6563.351), (-33789.08, 0, -6578.9), (-33988.957, 0, -6622.6895), (-33989.023, 0, -6622.647), (-33989.03, 0, -6622.7026), (-34076.508, 0, -6635.226), (-34183.74, 0, -6648.666), (-34184.758, 0, -6647.828), (-34184.85, 0, -6647.839), (-34184.95, 0, -6647.2534), (-34288.887, 0, -6660.2803), (-34388.81, 0, -6679.046), (-34388.844, 0, -6679.011), (-34388.87, 0, -6679.0557), (-34488.793, 0, -6691.579), (-34588.72, 0, -6710.348), (-34588.75, 0, -6710.313), (-34588.777, 0, -6710.3574), (-34688.727, 0, -6722.881), (-34776.13, 0, -6735.3965), (-34788.57, 0, -6738.5093), (-34788.63, 0, -6738.477), (-34788.66, 0, -6738.527), (-34888.613, 0, -6754.179), (-34888.637, 0, -6754.16), (-34888.645, 0, -6754.1836), (-34988.6, 0, -6766.708), (-34988.86, 0, -6766.482), (-35788.168, 0, -6920.3325), (-35788.184, 0, -6920.3057), (-35788.203, 0, -6920.339), (-35888.164, 0, -6935.668), (-36587.793, 0, -7042.0835), (-37387.348, 0, -7260.9795), (-37387.48, 0, -7260.7607), (-37387.543, 0, -7261.0127), (-38187.207, 0, -7317.1587), (-38187.215, 0, -7317.139), (-38187.22, 0, -7317.1597), (-38986.883, 0, -7362.457), (-38987.156, 0, -7361.805), (-38987.777, 0, -7361.531), (-39086.773, 0, -7367.7476), (-39186.637, 0, -7386.5054), (-39286.562, 0, -7411.519), (-39286.652, 0, -7411.428), (-39286.71, 0, -7411.545), (-39460.39, 0, -7427.881), (-39459.93, 0, -7430.6357), (-39460.773, 0, -7431.7905), (-39499.086, 0, -7436.596), (-39499.11, 0, -7436.5728), (-39499.14, 0, -7436.6016), (-39586.594, 0, -7442.875), (-39686.523, 0, -7452.2754), (-39786.465, 0, -7464.801), (-39786.48, 0, -7464.7773), (-39786.496, 0, -7464.804), (-39886.42, 0, -7474.2036), (-39986.332, 0, -7489.846), (-40086.27, 0, -7508.6177), (-40086.285, 0, -7508.6055), (-40086.3, 0, -7508.6226), (-40186.254, 0, -7524.272), (-40186.26, 0, -7524.262), (-40186.27, 0, -7524.274), (-40273.73, 0, -7536.7954), (-40286.223, 0, -7538.361), (-40286.23, 0, -7538.4688), (-41010.895, 0, -7636.9834), (-41085.86, 0, -7649.501), (-41885.496, 0, -7774.7026), (-41885.527, 0, -7774.605), (-41885.527, 0, -7774.7065), (-42685.176, 0, -7875.3687), (-42685.21, 0, -7875.2656), (-42685.207, 0, -7875.3726), (-42814.207, 0, -7887.433), (-43501.582, 0, -8021.025), (-43502.758, 0, -8020.207), (-43513.777, 0, -7953.761), (-43584.79, 0, -7962.658), (-43585, 0, -7962.369), (-43585.47, 0, -7962.4985), (-43622.96, 0, -7937.523), (-43622.938, 0, -7937.272), (-43623.223, 0, -7937.272), (-43685.723, 0, -7849.8237), (-43685.676, 0, -7849.742), (-43685.805, 0, -7849.69), (-43692.055, 0, -7837.199), (-43692.01, 0, -7837.11), (-43692.117, 0, -7837.0503), (-43723.383, 0, -7737.099), (-43723.2, 0, -7736.9443), (-43723.426, 0, -7736.8633), (-43729.707, 0, -7636.906), (-43729.63, 0, -7636.804), (-43729.707, 0, -7636.8003), (-43704.83, 0, -7056.572), (-43758.57, 0, -6837.411), (-43758.242, 0, -6837.3237), (-43757.926, 0, -6836.891), (-43758.1, 0, -6836.308), (-43743.23, 0, -6827.6733), (-43920.527, 0, -6037.761), (-43920.223, 0, -6037.693), (-43920.223, 0, -6037.667), (-43920.54, 0, -6037.6978), (-44021.945, 0, -5394.5337), (-44021.586, 0, -5394.452), (-44021.957, 0, -5394.3784), (-44021.984, 0, -5319.4087), (-44021.246, 0, -5318.8643), (-44021.24, 0, -5318.4414), (-43710.97, 0, -5236.828), (-43710.957, 0, -5236.855), (-43710.957, 0, -5236.825), (-43685.94, 0, -5230.5654), (-43586.027, 0, -5208.6753), (-43486.117, 0, -5177.42), (-43485.938, 0, -5177.5527), (-43485.953, 0, -5177.3833), (-42686.348, 0, -5070.9707), (-41886.766, 0, -4898.089), (-41783.625, 0, -4874.692), (-40840.38, 0, -4598.27), (-40250.242, 0, -4326.929), (-40198.867, 0, -4281.547), (-40198.844, 0, -4281.5474), (-40198.844, 0, -4281.525), (-39763.27, 0, -3896.7654), (-39420.855, 0, -3344.629), (-39340.367, 0, -3045.782), (-39349.164, 0, -2737.522), (-39389.297, 0, -2462.7068), (-39408.08, 0, -2337.764), (-39408.06, 0, -2337.7432), (-39408.082, 0, -2337.7395), (-39458.188, 0, -1937.9136), (-39458.152, 0, -1937.8899), (-39458.19, 0, -1937.8828), (-39495.797, 0, -1538.0754), (-39548.574, 0, -1138.2728), (-39605.33, 0, -738.4577), (-39661.035, 0, -338.69675), (-39771.09, 0, 61.048153), (-39771.043, 0, 61.07266), (-39771.11, 0, 61.128376), (-39789.945, 0, 161.0826), (-39789.918, 0, 161.1005), (-39789.953, 0, 161.11311), (-39836.902, 0, 460.97885), (-39836.883, 0, 460.98764), (-39836.906, 0, 461.0092), (-39843.164, 0, 510.9545), (-39852.543, 0, 560.87384), (-39868.727, 0, 625.53015), (-39867.926, 0, 626.4284), (-39867.938, 0, 626.7567), (-39867.07, 0, 626.91406), (-39883.855, 0, 760.8719), (-39883.836, 0, 760.9221), (-39883.86, 0, 760.9335), (-39887, 0, 810.8843), (-39890.12, 0, 835.78143), (-39896.36, 0, 860.71063), (-39896.316, 0, 860.7606), (-39896.383, 0, 860.82916), (-39915.17, 0, 1010.7651), (-39915.133, 0, 1010.8284), (-39915.18, 0, 1010.82666), (-39918.32, 0, 1060.8053), (-39917.32, 0, 1061.868), (-39915.94, 0, 1061.868), (-39990.34, 0, 1660.4514), (-40027.88, 0, 1860.3168), (-40199.45, 0, 2659.929), (-40199.223, 0, 2659.9973), (-40199.46, 0, 2659.989), (-40320.508, 0, 3459.6318), (-40320.26, 0, 3459.69), (-40320.51, 0, 3459.6755), (-40405.89, 0, 4259.3306), (-40405.47, 0, 4259.404), (-40405.895, 0, 4259.3843), (-40412.004, 0, 4375.4634), (-40986.156, 0, 7629.7266), (-41117.27, 0, 7910.758), (-41371.113, 0, 8088.4746), (-41680.258, 0, 8115.2705), (-41680.31, 0, 8117.2573), (-37359.03, 0, 8708.45), (-37358.137, 0, 8706.809), (-37572.215, 0, 8456.791), (-37650.805, 0, 8137.3145), (-37653.254, 0, 7823.969), (-37637.293, 0, 7459.0625), (-37637.527, 0, 7459.0454), (-37637.293, 0, 7459.0537), (-37610.016, 0, 6684.741), (-37610.004, 0, 6684.4414), (-37604.426, 0, 6659.567), (-37604.453, 0, 6659.5576), (-37604.418, 0, 6659.335), (-37604.402, 0, 6659.3345), (-37605.49, 0, 6581.199), (-37590.836, 0, 6503.754), (-37590.965, 0, 6503.7046), (-37590.95, 0, 6503.615), (-37590.82, 0, 6503.618), (-37558.64, 0, 5859.754), (-37486.613, 0, 5060.1465), (-37363.96, 0, 4260.552), (-37212.19, 0, 3460.9365), (-37058.77, 0, 2661.3179), (-36886.586, 0, 1861.7087), (-36886.547, 0, 1861.6752), (-36877.168, 0, 1811.7289), (-36864.664, 0, 1761.7822), (-36864.684, 0, 1761.7494), (-36864.65, 0, 1761.724), (-36845.875, 0, 1661.7698), (-36845.895, 0, 1661.7566), (-36845.87, 0, 1661.7499), (-36839.62, 0, 1624.3046), (-36836.5, 0, 1611.8494), (-36836.56, 0, 1611.7163), (-36836.473, 0, 1611.6692), (-36833.344, 0, 1561.782), (-36820.85, 0, 1511.8951), (-36820.87, 0, 1511.8762), (-36820.84, 0, 1511.8369), (-36802.07, 0, 1411.8975), (-36791.13, 0, 1361.9481), (-36789.582, 0, 1355.7814), (-36725.418, 0, 1195.5125), (-36723.938, 0, 1195.7814), (-36722.79, 0, 1195.0403), (-36702.027, 0, 1112.0905), (-36702.074, 0, 1112.05), (-36702.01, 0, 1112.0322), (-36692.73, 0, 1062.6102), (-36692.023, 0, 1061.9733), (-36689.49, 0, 1037.0383), (-36608.164, 0, 662.27026), (-36608.23, 0, 662.2225), (-36608.152, 0, 662.2129), (-36545.562, 0, 262.44357), (-36440.203, 0, -137.3146), (-36440.24, 0, -137.34087), (-36440.195, 0, -137.34662), (-36348.797, 0, -537.1574), (-36348.88, 0, -537.21924), (-36348.78, 0, -537.24005), (-36292.168, 0, -937.0111), (-36289.05, 0, -949.44324), (-36182.727, 0, -1336.7462), (-36182.74, 0, -1336.7625), (-36182.72, 0, -1336.7682), (-36082.633, 0, -1736.5759), (-36082.688, 0, -1736.6106), (-36082.625, 0, -1736.6226), (-36002.637, 0, -2136.425), (-35912.977, 0, -2536.1143), (-35891.637, 0, -2580.0747), (-35828.04, 0, -2639.6057), (-35502.723, 0, -2755.1963), (-34146.19, 0, -2940.781), (-34135.223, 0, -2942.2825), (-34135.223, 0, -2942.3535), (-33615.703, 0, -2834.6313), (-33390.812, 0, -2787.4482), (-33389.605, 0, -2788.426), (-33389.605, 0, -2790.5273), (-33290.895, 0, -2765.817), (-33290.867, 0, -2765.8767), (-33290.805, 0, -2765.799), (-33190.926, 0, -2750.1611), (-33141.02, 0, -2734.549), (-33140.953, 0, -2734.5896), (-33140.906, 0, -2734.5205), (-33090.926, 0, -2725.1333), (-33090.91, 0, -2725.1487), (-33090.9, 0, -2725.1282), (-32991.004, 0, -2709.488), (-32891.11, 0, -2681.358), (-32891.008, 0, -2681.433), (-32890.992, 0, -2681.3325), (-32791.082, 0, -2665.69), (-32601.756, 0, -2618.295), (-32601.305, 0, -2619.004), (-32600.973, 0, -2619.1292), (-32600.525, 0, -2619.1), (-32597.543, 0, -2636.9248), (-32491.377, 0, -2596.9182), (-32491.33, 0, -2596.9456), (-32491.295, 0, -2596.8914), (-32391.344, 0, -2568.748), (-32391.275, 0, -2568.8022), (-32391.227, 0, -2568.7227), (-32291.3, 0, -2553.0776), (-32203.885, 0, -2534.3157), (-32191.406, 0, -2531.1917), (-32191.36, 0, -2531.2256), (-32191.318, 0, -2531.1738), (-32091.408, 0, -2515.5312), (-31991.498, 0, -2490.521), (-31990.256, 0, -2491.491), (-31990.256, 0, -2492.4956), (-31716.6, 0, -2434.2004), (-31191.855, 0, -2313.5298), (-31191.73, 0, -2313.6282), (-31191.605, 0, -2313.5046), (-30392.945, 0, -2334.553), (-30392.945, 0, -2331.6826), (-30392.217, 0, -2330.72), (-30292.266, 0, -2302.5737), (-30292.246, 0, -2302.6392), (-30292.057, 0, -2302.5383), (-30192.16, 0, -2296.2646), (-30092.268, 0, -2277.5015), (-30092.25, 0, -2277.5156), (-30092.236, 0, -2277.4963), (-29992.283, 0, -2261.847), (-29992.26, 0, -2261.8657), (-29992.252, 0, -2261.8428), (-29792.342, 0, -2236.7908), (-29792.314, 0, -2236.823), (-29792.28, 0, -2236.7852), (-29742.36, 0, -2233.6487), (-29592.49, 0, -2205.4983), (-29592.475, 0, -2205.511), (-29592.475, 0, -2205.4956), (-29392.588, 0, -2171.0757), (-28992.828, 0, -2083.4988), (-28817.943, 0, -2033.4739), (-28817.791, 0, -2033.5743), (-28817.793, 0, -2033.4431), (-28792.805, 0, -2030.312), (-28792.758, 0, -2030.3539), (-28792.76, 0, -2030.3073), (-28592.94, 0, -2014.632), (-28393.13, 0, -1958.369), (-28392.95, 0, -1958.5072), (-28392.924, 0, -1958.3335), (-28193.07, 0, -1945.7794), (-27793.314, 0, -1870.6962), (-27793.22, 0, -1870.7728), (-27793.191, 0, -1870.6809), (-27593.273, 0, -1858.126), (-27593.213, 0, -1858.1846), (-27593.15, 0, -1858.126), (-27393.305, 0, -1870.554), (-27193.477, 0, -1851.757), (-27018.564, 0, -1832.9598), (-26993.586, 0, -1829.8298), (-26993.51, 0, -1829.8981), (-26993.432, 0, -1829.8225), (-26893.47, 0, -1832.917), (-26893.47, 0, -1832.9662), (-26893.44, 0, -1832.9185), (-26793.57, 0, -1839.126), (-26743.684, 0, -1832.8755), (-26743.64, 0, -1832.9242), (-26743.643, 0, -1832.8712), (-26593.713, 0, -1820.3319), (-26393.803, 0, -1801.5275), (-26393.773, 0, -1801.5544), (-26393.771, 0, -1801.525), (-26193.857, 0, -1788.967), (-26193.8, 0, -1789.02), (-26193.795, 0, -1788.9651), (-25993.967, 0, -1788.901), (-25794.193, 0, -1751.3806), (-25594.342, 0, -1695.105), (-25394.445, 0, -1635.6924), (-25394.424, 0, -1635.7079), (-25394.404, 0, -1635.6808), (-25382.016, 0, -1632.5795), (-25369.621, 0, -1626.3785), (-25369.414, 0, -1626.341), (-25369.416, 0, -1626.3027), (-25319.547, 0, -1613.8173), (-25314.719, 0, -1611.4006), (-25313.338, 0, -1612.0919), (-25313.295, 0, -1612.0825), (-25253.857, 0, -1885.6805), (-25245.074, 0, -1883.7704), (-25243.906, 0, -1884.5463), (-25243.879, 0, -1884.5405), (-25242.688, 0, -1890.0271), (-24447.473, 0, -1886.7957), (-21391.973, 0, -1387.6842), (-18039.482, 0, -840.1745), (-16525.188, 0, -592.83563), (-14976.713, 0, -340.01578), (-14975.565, 0, -340.8428), (-14970.715, 0, -370.78644), (-10317.214, 0, 406.55536), (-8917.205, 0, 2015.1927), (-8915.467, 0, 2014.7122), (-8870.68, 0, 1764.0763), (-7134.985, 0, 3758.4421), (-7133.585, 0, 3758.5498), (-6952.984, 0, 3605.989), (-6903.8677, 0, 3649.3374), (-6903.4336, 0, 3649.1416), (-6902.9326, 0, 3649.5496), (-6802.9634, 0, 3621.1287), (-6802.9614, 0, 3621.0178), (-6802.836, 0, 3621.083), (-6702.8604, 0, 3577.3818), (-6702.861, 0, 3577.3613), (-6702.814, 0, 3577.36), (-6690.3203, 0, 3571.1162), (-6690.3413, 0, 3570.792), (-6690.0605, 0, 3570.929), (-6590.0664, 0, 3470.9993), (-6590.0737, 0, 3470.4844), (-6589.7812, 0, 3470.4163), (-6577.2993, 0, 3370.8025), (-6477.55, 0, 3271.117), (-6402.558, 0, 3196.9673), (-6376.622, 0, 3171.1873), (-6302.548, 0, 3093.1636), (-6302.5557, 0, 3093.1553), (-6302.4663, 0, 3093.0654), (-6292.6704, 0, 3079.6763), (-6277.872, 0, 3071.3918), (-6102.768, 0, 2958.5134), (-6102.7954, 0, 2958.455), (-6102.7466, 0, 2958.4988), (-6002.7646, 0, 2890.283), (-6002.784, 0, 2890.2158), (-6002.7285, 0, 2890.257), (-5977.7344, 0, 2871.5222), (-5977.544, 0, 2871.1736), (-5977.465, 0, 2871.2158), (-5920.815, 0, 2771.4294), (-5902.738, 0, 2756.197), (-5802.976, 0, 2693.6733), (-5703.229, 0, 2675.0005), (-5678.2656, 0, 2671.8884), (-5678.254, 0, 2671.861), (-5678.225, 0, 2671.8826), (-5603.2495, 0, 2659.413), (-5603.066, 0, 2658.837), (-5602.6274, 0, 2659.0447), (-5601.47, 0, 2657.5723), (-5596.531, 0, 2665.1582), (-5596.512, 0, 2665.1577), (-5596.5137, 0, 2665.185), (-5596.455, 0, 2665.2588), (-5596.457, 0, 2665.278), (-5418.888, 0, 2938.1135), (-5409.429, 0, 2952.6255), (-3785.7903, 0, 4818.3086), (-3698.8884, 0, 4918.162), (-3698.8757, 0, 4918.157), (-3698.807, 0, 4918.258), (-674.26685, 0, 8393.681), (1000.9438, 0, 10318.457), (1000.96313, 0, 10318.458), (1000.9626, 0, 10318.479), (1931.629, 0, 11387.794), (3211.2068, 0, 12858.277), (4505.0913, 0, 14345.033), (5188.7095, 0, 15130.71), (5840.2593, 0, 15879.162), (6396.4546, 0, 16518.309), (6401.1157, 0, 16523.656), (6401.149, 0, 16523.672), (6401.142, 0, 16523.69), (6502.2227, 0, 16639.854), (7003.5415, 0, 17215.863), (7247.376, 0, 17496.053), (7608.4263, 0, 17910.96), (7608.4424, 0, 17910.96), (7608.442, 0, 17910.979), (7701.4624, 0, 18017.877), (7701.4844, 0, 18017.877), (7701.485, 0, 18017.902), (8492.512, 0, 18926.908), (11127.075, 0, 21953.922), (11689.136, 0, 22600.818), (11689.174, 0, 22600.836), (11842.31, 0, 22777.105), (12452.79, 0, 23479.725), (13095.265, 0, 24217.934), (13273.621, 0, 24422.848), (14401.067, 0, 25718.312), (15005.988, 0, 26413.428), (16413.246, 0, 28030.238), (17073.707, 0, 28789.38), (17629.92, 0, 29428.504), (17630.068, 0, 29428.645), (17748.062, 0, 29518.447), (17891.244, 0, 29627.484), (19583.035, 0, 30915.857), (21029.031, 0, 32016.94), (22101.26, 0, 32832.848), (24035.953, 0, 34304.957), (24036.105, 0, 34305.05), (24203.402, 0, 34390.203), (25943.918, 0, 35276.035), (26728.951, 0, 35675.6), (26729.404, 0, 35675.71), (32014.977, 0, 35677.36), (32015.357, 0, 35675.434), (30732.879, 0, 35146.113), (29952.865, 0, 34766.2), (28876.889, 0, 34242.164), (28473.422, 0, 34045.645), (28002.656, 0, 33816.383), (27829.668, 0, 33732.117), (27060.568, 0, 33258.617), (26502.44, 0, 32914.98), (26502.422, 0, 32914.99), (26502.404, 0, 32914.957), (25451.34, 0, 32267.854), (23283.025, 0, 30932.941), (21871.521, 0, 29838.33), (20873.5, 0, 29064.342), (20502.436, 0, 28717.03), (20502.352, 0, 28716.95), (20502.31, 0, 28716.938), (20502.31, 0, 28716.914), (20395.48, 0, 28616.918), (19647.617, 0, 27916.922), (18739.06, 0, 27066.46), (18202.549, 0, 26564.29), (17234.375, 0, 25658.008), (14993.04, 0, 23144.896), (14745.723, 0, 22860.74), (14507.174, 0, 22586.615), (14053.762, 0, 22065.656), (12703.195, 0, 20513.805), (11837.361, 0, 19518.922), (11226.51, 0, 18816.996), (10331.257, 0, 17788.352), (9809.005, 0, 17188.246), (9214.465, 0, 16505.102), (9214.448, 0, 16505.102), (9214.449, 0, 16505.084), (9122.859, 0, 16399.84), (9121.418, 0, 16398.191), (9121.4, 0, 16398.19), (9121.4, 0, 16398.168), (9103.816, 0, 16377.965), (9103.8, 0, 16377.963), (9103.802, 0, 16377.949), (9102.62, 0, 16376.591), (8795.698, 0, 16023.921), (6608.6567, 0, 13510.959), (2018.0228, 0, 8236.146), (2305.97, 0, 7985.625), (2309.8113, 0, 7987.889), (2310.1182, 0, 7987.7544), (2310.3455, 0, 7988.0273), (2315.0146, 0, 7987.9053), (2315.1892, 0, 7987.6714), (2315.4583, 0, 7987.7886), (2319.4377, 0, 7985.6704), (2319.4634, 0, 7985.531), (2319.6245, 0, 7985.542), (2392.5063, 0, 7922.079), (2392.51, 0, 7922.059), (2392.5188, 0, 7922.0684), (2507.271, 0, 7822.1416), (2507.3684, 0, 7820.7305), (2501.4595, 0, 7813.9497), (2535.0647, 0, 7784.685), (2540.9736, 0, 7791.4683), (2542.3845, 0, 7791.566), (2646.4563, 0, 7700.9375), (2646.448, 0, 7700.9253), (2646.5486, 0, 7700.8457), (2671.8628, 0, 7672.1797), (2692.4277, 0, 7650.9624), (2706.9365, 0, 7635.034), (2729.0044, 0, 7622.405), (2728.9883, 0, 7622.371), (2729.1643, 0, 7622.291), (2742.2998, 0, 7610.854), (2768.8674, 0, 7594.328), (2768.996, 0, 7594.2334), (3209.1572, 0, 7210.945), (3209.1704, 0, 7210.753), (3209.3342, 0, 7210.742), (3212.2761, 0, 7206.296), (3212.162, 0, 7205.9688), (3212.442, 0, 7205.771), (3212.5945, 0, 7200.0947), (3212.347, 0, 7199.8994), (3212.4778, 0, 7199.598), (3211.5144, 0, 7197.7866), (3443.8064, 0, 6995.6895), (3443.9043, 0, 6994.2783), (3202.62, 0, 6717.032), (3202.5974, 0, 6717.0405), (3202.5896, 0, 6716.9956), (3156.0747, 0, 6663.544), (2225.4229, 0, 5594.19), (82.6463, 0, 3131.9426), (274.28238, 0, 1955.1125), (6001.7026, 0, 2902.1653), (6101.6816, 0, 2918.696), (6101.692, 0, 2918.6873), (6101.7026, 0, 2918.6997), (8901.703, 0, 3381.6912), (12794.83, 0, 4025.5112), (14831.366, 0, 4362.1997), (16493.467, 0, 4636.952), (16776.94, 0, 4765.79), (16957.53, 0, 5019.2715), (16986.82, 0, 5329.263), (16791.242, 0, 6477.2134), (16792.049, 0, 6478.3647), (17323.19, 0, 6575.8286), (17320.146, 0, 6592.5615), (17320.318, 0, 6592.8066), (17320.156, 0, 6592.983), (17321.938, 0, 6600.423), (17322.363, 0, 6600.58), (17322.379, 0, 6601.0366), (17328.684, 0, 6604.998), (17328.88, 0, 6604.9106), (17329.037, 0, 6605.1353), (17592.02, 0, 6652.8735), (17635.947, 0, 6655.766), (17685.871, 0, 6662.29), (17735.822, 0, 6671.008), (17772.066, 0, 6677.588), (17785.793, 0, 6680.43), (18185.611, 0, 6755.546), (18235.592, 0, 6764.62), (18235.605, 0, 6764.5874), (18235.602, 0, 6764.6216), (18285.578, 0, 6773.1636), (18285.604, 0, 6773.0845), (18286.154, 0, 6773.091), (18292.63, 0, 6770.1987), (18297.41, 0, 6777.29), (18297.459, 0, 6777.2637), (18297.9, 0, 6777.6714), (18316.352, 0, 6784.3457), (18316.36, 0, 6784.3286), (18316.512, 0, 6784.389), (18489.596, 0, 6815.807), (18489.74, 0, 6815.707), (18489.842, 0, 6815.821), (18494.713, 0, 6815.494), (18494.883, 0, 6815.2437), (18495.168, 0, 6815.349), (18499.146, 0, 6812.9106), (18499.188, 0, 6812.572), (18499.51, 0, 6812.5225), (18502.281, 0, 6807.2334), (18502.201, 0, 6807.071), (18502.379, 0, 6806.9478), (18504.96, 0, 6792.687), (18770.8, 0, 6841.4688), (18771.969, 0, 6840.6533), (18971.873, 0, 5667.5405), (19102.047, 0, 5383.381), (19356.574, 0, 5201.971), (19667.646, 0, 5171.5713), (21368.305, 0, 5452.037), (23457.01, 0, 5796.552), (23683.621, 0, 5855.171), (24158.393, 0, 5979.8438), (24158.553, 0, 5979.7007), (24158.572, 0, 5979.7373), (24158.566, 0, 5979.873), (24483.334, 0, 6005.7754), (25282.854, 0, 6223.8447), (25282.912, 0, 6223.7603), (25282.932, 0, 6223.863), (26082.54, 0, 6374.05), (26882.135, 0, 6569.0815), (26882.154, 0, 6569.0547), (26882.162, 0, 6569.0874), (27681.795, 0, 6740.627), (27681.818, 0, 6740.5903), (27681.846, 0, 6740.6367), (27931.725, 0, 6780.7183), (27931.748, 0, 6780.6904), (27931.746, 0, 6780.7217), (28481.498, 0, 6856.264), (29281.139, 0, 6974.815), (29281.152, 0, 6974.79), (29281.16, 0, 6974.818), (30080.8, 0, 7075.025), (30880.436, 0, 7184.041), (31680.072, 0, 7304.102), (32479.71, 0, 7426.083), (33279.277, 0, 7560.154), (33354.184, 0, 7582.061), (33354.316, 0, 7581.963), (33354.336, 0, 7582.093), (34078.98, 0, 7676.027), (34878.574, 0, 7844.9517), (35678.2, 0, 8010.6753), (35678.215, 0, 8010.6533), (35678.22, 0, 8010.6787), (36477.85, 0, 8162.0366), (36477.88, 0, 8161.9897), (36477.887, 0, 8162.043), (37276.684, 0, 8283.736), (37276.684, 0, 8285.169), (37277.527, 0, 8286.157), (37377.48, 0, 8301.807), (37377.49, 0, 8301.771), (37377.51, 0, 8301.811), (37577.395, 0, 8326.859), (37792.195, 0, 8367.204), (37791.832, 0, 8369.515), (37792.82, 0, 8370.669), (37877.293, 0, 8370.696), (37902.16, 0, 8376.923), (37902.242, 0, 8376.881), (37902.277, 0, 8376.945), (37927.207, 0, 8380.068), (37939.543, 0, 8383.155), (37951.93, 0, 8389.356), (37952.37, 0, 8389.404), (37952.38, 0, 8389.462), (37977.29, 0, 8389.471), (38177.125, 0, 8420.758), (38177.184, 0, 8420.708), (38177.188, 0, 8420.766), (38377.07, 0, 8439.567), (38576.94, 0, 8470.861), (38576.97, 0, 8470.839), (38576.973, 0, 8470.866), (38776.88, 0, 8495.917), (38976.742, 0, 8524.086), (39176.6, 0, 8570.994), (39176.633, 0, 8570.969), (39176.664, 0, 8571.007), (39251.613, 0, 8583.525), (39376.547, 0, 8608.55), (39376.59, 0, 8608.515), (39376.59, 0, 8608.557), (39776.39, 0, 8671.155), (39976.29, 0, 8708.698), (39976.34, 0, 8708.657), (39976.35, 0, 8708.708), (40176.254, 0, 8733.76), (40176.3, 0, 8733.718), (40176.316, 0, 8733.766), (40376.23, 0, 8746.323), (40376.277, 0, 8746.279), (40376.324, 0, 8746.325), (40576.25, 0, 8740.139), (40576.258, 0, 8740.115), (40576.28, 0, 8740.138), (40776.066, 0, 8727.714), (40975.832, 0, 8772.08), (40975.883, 0, 8772.041), (40975.93, 0, 8772.097), (41075.89, 0, 8784.022), (41175.824, 0, 8796.545), (41375.69, 0, 8827.837), (41575.566, 0, 8871.626), (41575.617, 0, 8871.584), (41575.625, 0, 8871.637), (41775.54, 0, 8902.936), (41775.625, 0, 8902.861), (41775.65, 0, 8902.946), (41975.5, 0, 8912.38), (42175.34, 0, 8947.281), (42375.254, 0, 8981.757), (42375.285, 0, 8981.7295), (42375.324, 0, 8981.767), (42400.3, 0, 8984.356), (42575.215, 0, 9006.275), (42575.26, 0, 9006.235), (42575.26, 0, 9006.28), (42775.094, 0, 9021.954), (42974.914, 0, 9071.976), (42975.02, 0, 9071.8955), (42975.03, 0, 9071.998), (43174.816, 0, 9097.033), (43374.562, 0, 9178.697), (43386.832, 0, 9184.398), (43548.91, 0, 9384.019), (43573.816, 0, 9483.754), (43595.098, 0, 9582.494), (43593.504, 0, 9582.494), (43592.504, 0, 9583.493), (43592.418, 0, 9833.33), (43586.164, 0, 9883.247), (43587.156, 0, 9884.372), (43589.582, 0, 9884.372), (43573.63, 0, 10029.536), (43476.89, 0, 10682.871), (43476.902, 0, 10682.874), (43476.89, 0, 10682.874), (43378.547, 0, 11359.145), (43317.285, 0, 11724.103), (43292.383, 0, 11872.562), (43284.35, 0, 11920.343), (43271.117, 0, 11999.259), (43241.26, 0, 12177.087), (43234.496, 0, 12217.486), (43200.938, 0, 12417.446), (43200.957, 0, 12417.472), (43200.926, 0, 12417.497), (43128.613, 0, 12848.492), (43089.28, 0, 13082.767), (43081.08, 0, 13131.756), (43062.5, 0, 13242.463), (43019.508, 0, 13498.853), (43016.395, 0, 13517.487), (42914.453, 0, 14125.373), (42915.277, 0, 14126.524), (42996.617, 0, 14139.83), (42996.332, 0, 14141.967), (42996.633, 0, 14142.015), (42996.72, 0, 14142.095), (42996.664, 0, 14142.328), (42996.406, 0, 14142.489), (42999.055, 0, 14148.716), (42999.383, 0, 14148.716), (42999.61, 0, 14149.256), (43004.98, 0, 14151.348), (43005.05, 0, 14151.235), (43005.19, 0, 14151.354), (43005.184, 0, 14151.402), (43573.14, 0, 14244.998), (43573.15, 0, 14244.981), (43573.145, 0, 14244.999), (44172.926, 0, 14340.394), (44372.58, 0, 14416.779), (44372.715, 0, 14416.428), (44372.684, 0, 14416.813), (44734.28, 0, 14510.24), (44734.41, 0, 14509.916), (44734.48, 0, 14510.2705), (44949.29, 0, 14521.121), (44949.457, 0, 14520.642), (44950.324, 0, 14520.283), (45005, 0, 14184.99), (45004.98, 0, 14184.976), (45005.004, 0, 14184.969), (45047.867, 0, 13882.43), (45173.887, 0, 13420.216), (45173.656, 0, 13420.105), (45173.92, 0, 13419.99), (45186.52, 0, 13082.685), (45308.555, 0, 12283.099), (45308.457, 0, 12283.073), (45308.56, 0, 12283.078), (45414.062, 0, 11483.433), (45413.99, 0, 11483.413), (45414.066, 0, 11483.418), (45448.09, 0, 11194.201), (45527.68, 0, 10719.792), (45528.023, 0, 10717.823), (45527.992, 0, 10717.787), (45528.03, 0, 10717.742), (45533.566, 0, 10684.791), (45548.727, 0, 10594.338), (45549.777, 0, 10588.154), (45553.242, 0, 10567.421), (45585.74, 0, 10373.744), (45597.652, 0, 10302.63), (45606.613, 0, 10249.297), (45637.242, 0, 10066.685), (45766.69, 0, 9782.449), (46020.55, 0, 9601.034), (46285.723, 0, 9575.112), (46323.473, 0, 9582.203), (46323.516, 0, 9582.183), (46323.53, 0, 9582.213), (46373.49, 0, 9588.471), (46423.434, 0, 9597.853), (46423.48, 0, 9597.789), (46423.496, 0, 9597.862), (46473.47, 0, 9604.127), (46473.523, 0, 9604.108), (46473.53, 0, 9604.133), (46523.445, 0, 9607.267), (46573.332, 0, 9616.637), (46623.17, 0, 9629.115), (46673.05, 0, 9654.068), (46673.195, 0, 9654.019), (46673.254, 0, 9654.145), (46723.23, 0, 9666.657), (46723.305, 0, 9666.594), (46723.35, 0, 9666.64), (46723.348, 0, 9666.679), (46773.324, 0, 9672.941), (46774.45, 0, 9671.949), (46774.45, 0, 9670.677), (47203.074, 0, 9714.779), (48135.22, 0, 9868.891), (48372.492, 0, 9926.107), (48372.61, 0, 9925.813), (48372.6, 0, 9926.127), (48865.8, 0, 9989.686), (50620.332, 0, 10279.802), (52268.17, 0, 10552.172), (53904.777, 0, 10822.759), (55271.574, 0, 11048.771), (56639.484, 0, 11275.011), (56640.633, 0, 11274.194), (56663.676, 0, 11140.776), (56721.188, 0, 11129.372), (56721.3, 0, 11128.686), (56721.953, 0, 11128.679), (56744.363, 0, 11054.146), (56744.27, 0, 11054.042), (56744.387, 0, 11054.054), (56837.38, 0, 10587.415), (56837.08, 0, 10587.324), (56837.39, 0, 10587.358), (56948.777, 0, 9787.712), (56948.61, 0, 9787.676), (56948.645, 0, 9787.609), (56948.79, 0, 9787.613), (56956.83, 0, 9584.362), (57094.633, 0, 8988.236), (57119.363, 0, 8925.018), (57119.035, 0, 8924.538), (57119.383, 0, 8924.351), (57086.766, 0, 8821.431), (57086.496, 0, 8821.454), (57085.957, 0, 8820.743), (57064.918, 0, 8817.664), (57087.03, 0, 8689.56), (57086.21, 0, 8688.403), (49894.49, 0, 7481.876), (49495.29, 0, 7385.2407), (49495.227, 0, 7385.43), (49495.24, 0, 7385.23), (49173.434, 0, 7325.123), (48373.82, 0, 7140.997), (48373.746, 0, 7141.231), (48373.77, 0, 7140.987), (47574.137, 0, 6999.1963), (47574.13, 0, 6999.227), (47574.133, 0, 6999.196), (46775.33, 0, 6859.8657), (46775.33, 0, 6857.45), (46774.45, 0, 6856.458), (46749.523, 0, 6853.334), (46724.594, 0, 6847.093), (46724.367, 0, 6847.1206), (46724.35, 0, 6847.063), (46699.49, 0, 6847.0566), (46653.465, 0, 6835.5356), (46652.3, 0, 6836.346), (46652.234, 0, 6836.335), (46643.3, 0, 6887.9043), (46634.594, 0, 6886.395), (46634.645, 0, 6886.121), (46012.496, 0, 6759.4233), (46000.117, 0, 6753.2295), (45999.91, 0, 6753.1533), (45974.92, 0, 6746.9004), (45974.457, 0, 6747.266), (45573.004, 0, 6701.8374), (45175.29, 0, 6601.823), (45175.195, 0, 6602.19), (45175.16, 0, 6602.157), (45175.207, 0, 6601.8057), (44375.566, 0, 6473.599), (43854.5, 0, 6383.8755), (43576.02, 0, 6314.6006), (43575.906, 0, 6314.89), (43575.938, 0, 6314.583), (43151.21, 0, 6247.208), (36187.39, 0, 4831.345), (27403.764, 0, 3045.4583), (26023.326, 0, 2458.6782), (26023.135, 0, 2458.6184), (22578.768, 0, 1758.6277), (22578.627, 0, 1758.6093), (22560.98, 0, 1757.5961), (20482.207, 0, 1638.4321), (19300.928, 0, 1398.3408), (19305.781, 0, 1369.8319), (19316.877, 0, 1303.7949), (19910.463, 0, -2230.2964), (19909.643, 0, -2231.448), (18802.031, 0, -2417.4343), (14042.818, 0, -3216.8325), (14133.797, 0, -3758.3604), (14132.977, 0, -3759.512), (11667.697, 0, -4173.5913), (9384.527, 0, -5063.884), (9624.611, 0, -6493.068), (9623.791, 0, -6494.2197), (5180.81, 0, -7242.0303), (5183.8286, 0, -7321.824), (5188.419, 0, -7481.5073), (5193.6553, 0, -7862.1406), (5262.084, 0, -8375.67), (5492.608, 0, -10872.002), (5502.7827, 0, -10982.206), (5502.7603, 0, -10982.232), (5502.7886, 0, -10982.258), (5512.957, 0, -11092.348), (5580.1484, 0, -11820.107), (5491.1836, 0, -17530.38), (5301.0083, 0, -20446.879), (5300.1475, 0, -20447.805), (4588.0996, 0, -20546.365), (4584.972, 0, -20580.03), (4584.5103, 0, -20580.023), (4584.188, 0, -20580.346), (4584.1396, 0, -20580.924), (4534.707, 0, -20589.096), (4533.6265, 0, -20588.24), (4533.5537, 0, -20588.246), (4530.1514, 0, -20563.71), (4196.6274, 0, -20609.957), (4200.9155, 0, -20640.877), (4199.997, 0, -20641.611), (4200.0176, 0, -20642.01), (3800.2812, 0, -20679.246), (3400.566, 0, -20793.465), (3400.4812, 0, -20793.229), (3400.452, 0, -20793.49), (3250.519, 0, -20817.912), (3250.4678, 0, -20817.86), (3250.458, 0, -20817.92), (3000.5679, 0, -20842.986), (3000.421, 0, -20842.596), (3000.3867, 0, -20842.988), (2695.957, 0, -20818.139), (2601.397, 0, -20924), (2601.2727, 0, -20923.896), (2600.714, 0, -20924.33), (2500.7566, 0, -20930.611), (2500.6013, 0, -20930.547), (2500.5703, 0, -20930.605), (2450.6504, 0, -20924.383), (2400.7993, 0, -20924.4), (2350.8794, 0, -20930.654), (2350.8225, 0, -20930.576), (2350.7551, 0, -20930.662), (2300.7734, 0, -20930.674), (2300.6501, 0, -20930.467), (2300.3264, 0, -20930.568), (2275.3325, 0, -20918.082), (2275.2974, 0, -20917.791), (2274.9475, 0, -20917.742), (2249.9475, 0, -20880.266), (2249.9746, 0, -20880.205), (2249.885, 0, -20880.158), (2245.1406, 0, -20870.674), (2087.2812, 0, -20892.531), (2086.149, 0, -20891.441), (2101.7, 0, -20733.412), (1927.9484, 0, -19682.512), (1715.5399, 0, -18397.178), (1636.3651, 0, -17917.996), (1374.1642, 0, -16330.277), (1200.9585, 0, -15282.544), (1200.9749, 0, -15282.524), (1200.9513, 0, -15282.504), (1086.8046, 0, -14591.978), (833.34863, 0, -13057.768), (804.77167, 0, -13062.558), (803.6197, 0, -13061.734), (616.4097, 0, -11928.723), (493.2347, 0, -11656.942), (254.28992, 0, -11485.584), (-38.60175, 0, -11456.49), (-39.489296, 0, -11455.659), (-44.5735, 0, -11425.044), (-44.5819, 0, -11424.779), (-9.683552, 0, -11081.471), (-70.12021, 0, -11092.651), (-71.284904, 0, -11091.853), (-79.22841, 0, -11049.602), (-92.87727, 0, -11022.327), (-93.10952, 0, -11022.063), (-93.36743, 0, -11022.071), (-102.336006, 0, -10974.365), (-121.7013, 0, -10922.3545), (-177.12744, 0, -10822.476), (-176.8995, 0, -10821.744), (-177.17938, 0, -10821.613), (-139.59119, 0, -10729.1875), (-144.42908, 0, -10722.613), (-144.41849, 0, -10722.605), (-144.55806, 0, -10722.263), (-144.59227, 0, -10722.27), (-170.24475, 0, -10622.32), (-196.40382, 0, -10522.372), (-196.33372, 0, -10522.349), (-196.40845, 0, -10522.354), (-202.44482, 0, -10497.365), (-202.43553, 0, -10497.219), (-202.4693, 0, -10497.214), (-208.74309, 0, -10422.252), (-218.61174, 0, -10322.302), (-218.60164, 0, -10322.286), (-218.61328, 0, -10322.285), (-220.66153, 0, -10297.109), (-255.79506, 0, -10222.683), (-255.69579, 0, -10222.633), (-255.69818, 0, -10222.62), (-255.81746, 0, -10222.632), (-296.34482, 0, -10122.684), (-295.90506, 0, -10122.373), (-295.92377, 0, -10122.321), (-295.99014, 0, -10122.287), (-296.41406, 0, -10122.218), (-287.43182, 0, -10022.347), (-296.81622, 0, -9922.613), (-302.4665, 0, -9907.573), (-399.3645, 0, -9823.215), (-399.30222, 0, -9823.11), (-399.61496, 0, -9822.881), (-402.51413, 0, -9816.634), (-402.41498, 0, -9816.507), (-402.55563, 0, -9816.53), (-433.82394, 0, -9722.829), (-433.73416, 0, -9722.704), (-433.8582, 0, -9722.696), (-452.6326, 0, -9622.742), (-452.33978, 0, -9622.39), (-452.5255, 0, -9622.075), (-402.57434, 0, -9531.469), (-402.36383, 0, -9531.522), (-401.94125, 0, -9530.981), (-377.71082, 0, -9524.918), (-377.71082, 0, -9522.573), (-376.7113, 0, -9521.573), (-370.6971, 0, -9521.57), (-364.6661, 0, -9518.552), (-364.58902, 0, -9518.61), (-364.45978, 0, -9518.475), (-351.96588, 0, -9515.347), (-351.9576, 0, -9515.37), (-351.72327, 0, -9515.317), (-339.64343, 0, -9515.314), (-333.68622, 0, -9509.356), (-333.4211, 0, -9509.303), (-333.4267, 0, -9509.17), (-327.1828, 0, -9506.045), (-326.9915, 0, -9506.054), (-326.9781, 0, -9505.969), (-302.09662, 0, -9499.739), (-289.7011, 0, -9493.539), (-289.58295, 0, -9493.598), (-289.49637, 0, -9493.463), (-227.13338, 0, -9477.853), (-202.24365, 0, -9465.398), (-202.11368, 0, -9465.454), (-202.03914, 0, -9465.322), (-152.06355, 0, -9452.811), (-151.9906, 0, -9452.86), (-151.945, 0, -9452.788), (-127.01716, 0, -9449.665), (-102.80589, 0, -9443.603), (-102.116615, 0, -9442.692), (-27.46227, 0, -9421.631), (97.23956, 0, -9265.653), (97.494446, 0, -9265.742), (97.48349, 0, -9265.434), (144.83409, 0, -9235.281), (143.57913, 0, -9227.602)]
+        uniform token purpose = "default"
+        uniform token type = "linear"
+        float[] widths = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        uniform token wrap = "periodic"
+        double3 xformOp:rotateXYZ = (-6.361109362927035e-15, -2.30956309667128e-15, 1.2060691195919775e-15)
+        double3 xformOp:scale = (1, 0.9999999999999998, 0.9999999999999998)
+        double3 xformOp:translate = (77498.13415619731, -1.1920928955078125e-7, -39117.65208688378)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
     }
 }
 
