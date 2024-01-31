@@ -1,0 +1,261 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (12905.030063313938, 10537.56980837848, 9956.416808689648)
+                double3 target = (-1525.206045325709, 345.6393769089682, -481.95348463065056)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary navmeshSettings = {
+            double agentHeight = 180
+            double agentRadius = 20
+            bool excludeRigidBodies = 1
+            uint64 ver = 1
+            double voxelCeiling = 460
+        }
+        dictionary omni_layer = {
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+            float3 "rtx:debugView:pixelDebug:textColor" = (0, 1e18, 0)
+            float3 "rtx:fog:fogColor" = (0.75, 0.75, 0.75)
+            float3 "rtx:index:regionOfInterestMax" = (0, 0, 0)
+            float3 "rtx:index:regionOfInterestMin" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_ground_position" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_ground_reflectivity" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_rotation_axis" = (3.4028235e38, 3.4028235e38, 3.4028235e38)
+            float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gain" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:offset" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:saturation" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:blackpoint" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gain" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:lift" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:multiply" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:offset" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:whitepoint" = (1, 1, 1)
+            float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffX" = (450, 475, 500)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffY" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:cutoffPoint" = (2, 2, 2)
+            double "rtx:post:lensFlares:flareScale" = 0.075
+            float3 "rtx:post:lensFlares:haloFlareFalloff" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:haloFlareRadius" = (75, 75, 75)
+            float3 "rtx:post:lensFlares:isotropicFlareFalloff" = (50, 50, 50)
+            float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
+            float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
+            float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
+            float3 "rtx:sceneDb:ambientLightColor" = (0, 0, 0)
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+}
+
+def Xform "Environment"
+{
+    int ground:size = 1400
+    string ground:type = "On"
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+    def DomeLight "Sky" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:colorTemperature = 6250
+        bool inputs:enableColorTemperature = 1
+        float inputs:exposure = 9
+        float inputs:intensity = 1
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        asset inputs:texture:file = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Assets/Scenes/Templates/Default/SubUSDs/textures/CarLight_512x256.hdr@
+        token inputs:texture:format = "latlong"
+        token visibility = "inherited"
+        double3 xformOp:rotateXYZ = (0, -90, -90)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 305, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def DistantLight "DistantLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 2.5
+        float inputs:colorTemperature = 7250
+        bool inputs:enableColorTemperature = 1
+        float inputs:exposure = 10
+        float inputs:intensity = 1
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        token visibility = "inherited"
+        double3 xformOp:rotateXYZ = (-105, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 305, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def Scope "Looks"
+    {
+        def Material "Grid"
+        {
+            token outputs:mdl:displacement.connect = </Environment/Looks/Grid/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </Environment/Looks/Grid/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </Environment/Looks/Grid/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                float inputs:albedo_add = 0
+                float inputs:albedo_brightness = 0.52
+                float inputs:albedo_desaturation = 1
+                asset inputs:diffuse_texture = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Assets/Scenes/Templates/Default/SubUSDs/textures/ov_uv_grids_basecolor_1024.png@ (
+                    colorSpace = "sRGB"
+                    customData = {
+                        asset default = @@
+                    }
+                )
+                bool inputs:project_uvw = 0
+                float inputs:reflection_roughness_constant = 0.333
+                float inputs:texture_rotate = 0 (
+                    customData = {
+                        float default = 0
+                    }
+                )
+                float2 inputs:texture_scale = (0.5, 0.5) (
+                    customData = {
+                        float2 default = (1, 1)
+                    }
+                )
+                float2 inputs:texture_translate = (0, 0) (
+                    customData = {
+                        float2 default = (0, 0)
+                    }
+                )
+                bool inputs:world_or_object = 0 (
+                    customData = {
+                        bool default = 0
+                    }
+                )
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+    }
+
+    def Plane "groundCollider" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Y"
+        uniform token purpose = "guide"
+    }
+}
+
+def CesiumDataPrim "Cesium"
+{
+    rel cesium:selectedIonServer = </CesiumServers/IonOfficial>
+}
+
+def CesiumGeoreferencePrim "CesiumGeoreference"
+{
+    double cesium:georeferenceOrigin:height = 48
+    double cesium:georeferenceOrigin:latitude = -28.02299
+    double cesium:georeferenceOrigin:longitude = 153.43348
+}
+
+def "CesiumServers"
+{
+    def CesiumIonServerPrim "IonOfficial"
+    {
+        string cesium:displayName = "ion.cesium.com"
+        string cesium:ionServerApiUrl = "https://api.cesium.com/"
+        int64 cesium:ionServerApplicationId = 413
+        string cesium:ionServerUrl = "https://ion.cesium.com/"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkZGM4NWEyZC01ZTIxLTRkNDQtOTQzYS02NWZiODc5YTQxOTIiLCJpZCI6MjU5LCJpYXQiOjE3MDQyMDQ5MTN9.xOGuCBTMV66OCBDuMADUgrV7O1zM22OcaKGl-uev61E"
+        string cesium:projectDefaultIonAccessTokenId = ""
+    }
+}
+
+def CesiumTilesetPrim "Google_Photorealistic_3D_Tiles"
+{
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    string cesium:ionAccessToken = ""
+    int64 cesium:ionAssetId = 2275207
+    prepend rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    prepend rel cesium:rasterOverlayBinding = </Google_Photorealistic_3D_Tiles/polygon_raster_overlay>
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-1069655230, -1954915800, -1202214700), (1069655230, 680221630, 1205759000)]
+
+    def CesiumPolygonRasterOverlayPrim "polygon_raster_overlay"
+    {
+        rel cesium:cartographicPolygonBinding = </CesiumCartographicPolygons/cartographic_polygon>
+    }
+}
+
+def "CesiumCartographicPolygons"
+{
+    def BasisCurves "cartographic_polygon" (
+        delete apiSchemas = ["OmniSceneVisualizationAPI"]
+        prepend apiSchemas = ["CesiumGlobeAnchorSchemaAPI"]
+    )
+    {
+        prepend rel cesium:anchor:georeferenceBinding = </CesiumGeoreference>
+        double cesium:anchor:height = 47.99999999949265
+        double cesium:anchor:latitude = -28.0229900000002
+        double cesium:anchor:longitude = 153.43348000000003
+        double3 cesium:anchor:position = (-5039644.196393586, 2519983.5943807736, -2978777.1128742425)
+        int[] curveVertexCounts = [4]
+        float3[] extent = [(-5193.7144, -25, -4989.692), (4566.8457, 25, 5623.5464)]
+        point3f[] points = [(-5168.7144, -4.4727386e-7, -3551.4595), (-3703.8162, 8.0610795e-7, 5598.5464), (4541.8457, 5.2022e-7, 3967.659), (3290.5906, -6.950148e-7, -4964.692)]
+        uniform token type = "linear"
+        float[] widths = [50, 50, 50, 50]
+        uniform token wrap = "periodic"
+        double3 xformOp:rotateXYZ = (-1.5046628517606547e-8, -1.9071948794532765e-14, 3.515857117033787e-14)
+        double3 xformOp:scale = (0.9999999999999993, 1.0000000000000004, 0.9999999999999992)
+        double3 xformOp:translate = (1.788139327343401e-7, 0, 0.0000022351741790771484)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+
