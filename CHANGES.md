@@ -1,3 +1,8 @@
+### v0.17.0 - 2024-02-01
+
+- Added project files for Tileset Clipping tutorial.
+- Updates for Cesium for Omniverse v0.17.0.
+
 ### v0.16.0 - 2024-01-02
 
 - Added project files for Placing Objects on the Globe tutorial.
