@@ -1,3 +1,8 @@
+### v0.18.0 - 2024-03-01
+
+- Added samples for Raster Overlays.
+- Updates for Cesium for Omniverse v0.18.0.
+
 ### v0.17.0 - 2024-02-01
 
 - Added project files for Tileset Clipping tutorial.
