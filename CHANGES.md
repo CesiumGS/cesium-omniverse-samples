@@ -1,3 +1,7 @@
+### v0.19.0 - 2024-04-01
+
+- Updates for Cesium for Omniverse v0.19.0.
+
 ### v0.18.0 - 2024-03-01
 
 - Added samples for Raster Overlays.

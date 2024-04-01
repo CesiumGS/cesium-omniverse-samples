@@ -218,7 +218,7 @@ def "CesiumServers"
         string cesium:ionServerApiUrl = "https://api.cesium.com/"
         int64 cesium:ionServerApplicationId = 413
         string cesium:ionServerUrl = "https://ion.cesium.com/"
-        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NGE2ZmMwNy0xMWM1LTQ4ODAtODljMy01MmViZjc1OGI0MWYiLCJpZCI6MjU5LCJpYXQiOjE3MDkyNDQxMzF9.YPa8sXOQEXH9EIDviYFca4w_O4QCCKKXUWzPRM862vw"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0Y2ZjNzY3NC04MWIyLTQyN2ItODg3Zi0zYzk3MmQxZWYxMmIiLCJpZCI6MjU5LCJpYXQiOjE3MTE5NzkyNzl9.GuvRiyuJO14zjA5_mIwgocOShmF4EUj2xbmikcCeXxs"
         string cesium:projectDefaultIonAccessTokenId = ""
     }
 }
