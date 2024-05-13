@@ -1,3 +1,8 @@
+### v0.21.0 - 2024-06-03
+
+- Added Montreal Point Cloud Classification sample. 
+- Updates for Cesium for Omniverse v0.21.0.
+
 ### v0.20.0 - 2024-05-01
 
 - Updates for Cesium for Omniverse v0.20.0.

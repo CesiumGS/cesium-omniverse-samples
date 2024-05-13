@@ -1,0 +1,873 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 50000)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (25458.698371370676, 91345.36213692423, 611646.6889779991)
+                double3 target = (-437362.3848186358, -204228.3245416832, 729370.99278206)
+            }
+            dictionary Right = {
+                double3 position = (-50000, 0, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 50000, 0)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./MontrealPointCloudClassification.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+            float3 "rtx:debugView:pixelDebug:textColor" = (0, 1e18, 0)
+            float3 "rtx:fog:fogColor" = (0.75, 0.75, 0.75)
+            float3 "rtx:index:regionOfInterestMax" = (0, 0, 0)
+            float3 "rtx:index:regionOfInterestMin" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_ground_position" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_ground_reflectivity" = (0, 0, 0)
+            float3 "rtx:iray:environment_dome_rotation_axis" = (3.4028235e38, 3.4028235e38, 3.4028235e38)
+            float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gain" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:offset" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:saturation" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:blackpoint" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gain" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:lift" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:multiply" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:offset" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:whitepoint" = (1, 1, 1)
+            float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffX" = (450, 475, 500)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffY" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:cutoffPoint" = (2, 2, 2)
+            float3 "rtx:post:lensFlares:haloFlareFalloff" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:haloFlareRadius" = (75, 75, 75)
+            float3 "rtx:post:lensFlares:isotropicFlareFalloff" = (50, 50, 50)
+            float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
+            float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
+            float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
+            float3 "rtx:sceneDb:ambientLightColor" = (0.1, 0.1, 0.1)
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.01
+    startTimeCode = 0
+    timeCodesPerSecond = 30
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Scope "Looks"
+    {
+        def Material "Material" (
+            customData = {
+                dictionary ui = {
+                    dictionary nodegraph = {
+                        dictionary node = {
+                            dictionary pos = {
+                                double2 output = (275.6073913574219, -13.170894622802734)
+                            }
+                        }
+                    }
+                }
+            }
+        )
+        {
+            token outputs:displacement.connect = </World/Looks/Material/cesium_material.outputs:out>
+            token outputs:mdl:displacement
+            token outputs:mdl:surface
+            token outputs:mdl:volume
+            token outputs:surface.connect = </World/Looks/Material/cesium_material.outputs:out>
+            token outputs:volume.connect = </World/Looks/Material/cesium_material.outputs:out>
+            uniform token ui:nodegraph:node:expansionState = "open"
+
+            def Shader "cesium_property_int" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_property_int"
+                string inputs:property_id = "Classification" (
+                    customData = {
+                        string default = ""
+                    }
+                    doc = """This parameter is unused.
+"""
+                    hidden = false
+                    renderType = "string"
+                )
+                int inputs:property_value (
+                    connectability = "interfaceOnly"
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = true
+                    renderType = "int"
+                )
+                int outputs:out (
+                    renderType = "int"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-1346.5792, -17.153097)
+            }
+
+            def Shader "cesium_material" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @cesium.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "cesium_material"
+                float inputs:alpha_cutoff (
+                    customData = {
+                        float default = 0.5
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Alpha Cutoff"
+                    doc = """Threshold to decide between fully transparent and fully opaque when alpha mode is 'mask'.
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                int inputs:alpha_mode (
+                    customData = {
+                        int default = 0
+                    }
+                    displayName = "Alpha Mode"
+                    doc = """Select how to interpret the alpha value.
+
+"""
+                    hidden = false
+                    renderType = "gltf_alpha_mode"
+                    sdrMetadata = {
+                        string __SDR__enum_value = "opaque"
+                        string options = "opaque:0|mask:1|blend:2"
+                    }
+                )
+                float inputs:base_alpha (
+                    customData = {
+                        float default = 1
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Base Alpha"
+                    doc = """Select between transparent (0.0) and opaque (1.0).
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                color3f inputs:base_color_factor (
+                    customData = {
+                        float3 default = (1, 1, 1)
+                    }
+                    displayName = "Base Color Factor"
+                    doc = """The base color of the material.
+
+"""
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:base_color_factor.connect = </World/Looks/Material/condition_05.outputs:out>
+                color3f inputs:emissive_factor (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    displayName = "Emissive Factor"
+                    doc = """The emissive color of the material.
+
+"""
+                    hidden = false
+                    renderType = "color"
+                )
+                float inputs:metallic_factor (
+                    customData = {
+                        float default = 0
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Metallic Factor"
+                    doc = """The metalness of the material. Select between dielectric (0.0) and metallic (1.0).
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                float inputs:roughness_factor (
+                    customData = {
+                        float default = 1
+                        dictionary range = {
+                            float max = 1
+                            float min = 0
+                        }
+                    }
+                    displayName = "Roughness Factor"
+                    doc = """The roughness of the material. Select between very glossy (0.0) and dull (1.0).
+
+"""
+                    hidden = false
+                    renderType = "float"
+                )
+                token outputs:out (
+                    renderType = "material"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (31.307558, -38.872356)
+            }
+
+            def Shader "condition" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "condition(bool,color,color)"
+                color3f inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:a.connect = </World/Looks/Material/color_not_awarded.outputs:out>
+                color3f inputs:b (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:b.connect = </World/Looks/Material/color_default.outputs:out>
+                bool inputs:x (
+                    customData = {
+                        bool default = 1
+                    }
+                    hidden = false
+                    renderType = "bool"
+                )
+                bool inputs:x.connect = </World/Looks/Material/is_not_awarded.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-476.17017, 874.5452)
+            }
+
+            def Shader "condition_01" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "condition(bool,color,color)"
+                color3f inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:a.connect = </World/Looks/Material/color_ground.outputs:out>
+                color3f inputs:b (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:b.connect = </World/Looks/Material/condition.outputs:out>
+                bool inputs:x (
+                    customData = {
+                        bool default = 1
+                    }
+                    hidden = false
+                    renderType = "bool"
+                )
+                bool inputs:x.connect = </World/Looks/Material/is_ground.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-478.77884, 694.88245)
+            }
+
+            def Shader "condition_02" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "condition(bool,color,color)"
+                color3f inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:a.connect = </World/Looks/Material/color_low_vegetation.outputs:out>
+                color3f inputs:b (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:b.connect = </World/Looks/Material/condition_01.outputs:out>
+                bool inputs:x (
+                    customData = {
+                        bool default = 1
+                    }
+                    hidden = false
+                    renderType = "bool"
+                )
+                bool inputs:x.connect = </World/Looks/Material/is_low_vegetation.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-485.49457, 523.1709)
+            }
+
+            def Shader "condition_03" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "condition(bool,color,color)"
+                color3f inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:a.connect = </World/Looks/Material/color_medium_vegetation.outputs:out>
+                color3f inputs:b (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:b.connect = </World/Looks/Material/condition_02.outputs:out>
+                bool inputs:x (
+                    customData = {
+                        bool default = 1
+                    }
+                    hidden = false
+                    renderType = "bool"
+                )
+                bool inputs:x.connect = </World/Looks/Material/is_medium_vegetation.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-491.4183, 338.1023)
+            }
+
+            def Shader "condition_04" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "condition(bool,color,color)"
+                color3f inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:a.connect = </World/Looks/Material/color_high_vegetation.outputs:out>
+                color3f inputs:b (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:b.connect = </World/Looks/Material/condition_03.outputs:out>
+                bool inputs:x (
+                    customData = {
+                        bool default = 1
+                    }
+                    hidden = false
+                    renderType = "bool"
+                )
+                bool inputs:x.connect = </World/Looks/Material/is_high_vegetation.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-487.7583, 143.5255)
+            }
+
+            def Shader "condition_05" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "condition(bool,color,color)"
+                color3f inputs:a (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:a.connect = </World/Looks/Material/color_buildings.outputs:out>
+                color3f inputs:b (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f inputs:b.connect = </World/Looks/Material/condition_04.outputs:out>
+                bool inputs:x (
+                    customData = {
+                        bool default = 1
+                    }
+                    hidden = false
+                    renderType = "bool"
+                )
+                bool inputs:x.connect = </World/Looks/Material/buildings.outputs:out>
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-497.68524, -36.773754)
+            }
+
+            def Shader "is_not_awarded" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "equality(int,int)"
+                int inputs:a (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                int inputs:a.connect = </World/Looks/Material/cesium_property_int.outputs:out>
+                int inputs:b = 1 (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                bool outputs:out (
+                    renderType = "bool"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-904.4317, 872.3412)
+            }
+
+            def Shader "is_ground" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "equality(int,int)"
+                int inputs:a (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                int inputs:a.connect = </World/Looks/Material/cesium_property_int.outputs:out>
+                int inputs:b = 2 (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                bool outputs:out (
+                    renderType = "bool"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-913.845, 687.0398)
+            }
+
+            def Shader "is_low_vegetation" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "equality(int,int)"
+                int inputs:a (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                int inputs:a.connect = </World/Looks/Material/cesium_property_int.outputs:out>
+                int inputs:b = 3 (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                bool outputs:out (
+                    renderType = "bool"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-912.2157, 520.8804)
+            }
+
+            def Shader "is_medium_vegetation" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "equality(int,int)"
+                int inputs:a (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                int inputs:a.connect = </World/Looks/Material/cesium_property_int.outputs:out>
+                int inputs:b = 4 (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                bool outputs:out (
+                    renderType = "bool"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-919.1984, 328.67508)
+            }
+
+            def Shader "is_high_vegetation" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "equality(int,int)"
+                int inputs:a (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                int inputs:a.connect = </World/Looks/Material/cesium_property_int.outputs:out>
+                int inputs:b = 5 (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                bool outputs:out (
+                    renderType = "bool"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-921.7144, 142.71225)
+            }
+
+            def Shader "buildings" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "equality(int,int)"
+                int inputs:a (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                int inputs:b = 6 (
+                    customData = {
+                        int default = 0
+                    }
+                    hidden = false
+                    renderType = "int"
+                )
+                bool outputs:out (
+                    renderType = "bool"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-922.86176, -50.217426)
+            }
+
+            def Shader "color_not_awarded" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (1, 0.87058824, 0.6784314) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-699.585, 945.36066)
+            }
+
+            def Shader "color_default" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (0.5019608, 0.5019608, 0.5019608) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-690.6714, 1104.725)
+            }
+
+            def Shader "color_ground" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (1, 0.87058824, 0.6784314) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-714.03577, 754.9287)
+            }
+
+            def Shader "color_low_vegetation" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (0.3882353, 1, 0.49411765) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-718.84705, 591.4212)
+            }
+
+            def Shader "color_medium_vegetation" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (0.3882353, 1, 0.49411765) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-719.1456, 406.69315)
+            }
+
+            def Shader "color_high_vegetation" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (0.13333334, 0.7019608, 0.22745098) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-719.67755, 224.26384)
+            }
+
+            def Shader "color_buildings" (
+                prepend apiSchemas = ["NodeGraphNodeAPI"]
+            )
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @nvidia/support_definitions.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "color_const"
+                color3f inputs:c = (0.9372549, 0.9372549, 0.9372549) (
+                    customData = {
+                        float3 default = (0, 0, 0)
+                    }
+                    hidden = false
+                    renderType = "color"
+                )
+                color3f outputs:out (
+                    renderType = "color"
+                )
+                uniform token ui:nodegraph:node:expansionState = "open"
+                uniform float2 ui:nodegraph:node:pos = (-728.1062, 30.21339)
+            }
+        }
+    }
+
+    def Cube "TempMaterialPlaceholder" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
+        rel material:binding = </World/Looks/Material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double size = 100
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+
+def Xform "Environment"
+{
+    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 1
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        double3 xformOp:rotateXYZ = (315, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+}
+
+def CesiumDataPrim "Cesium"
+{
+    prepend rel cesium:selectedIonServer = </CesiumServers/IonOfficial>
+}
+
+def CesiumGeoreferencePrim "CesiumGeoreference"
+{
+    matrix4d cesium:ecefToUsdTransform = ( (95.91531733768755, 19.827159554483515, 20.177602533793557, 0), (28.28872390212572, -67.2256658572834, -68.41387249698839, 0), (1.6940658945086015e-15, 71.32736917934052, -70.08856116338862, 0), (-7.668387839090227e-9, -636726631.5876863, -2138200.283743739, 1) )
+    double cesium:georeferenceOrigin:height = 0
+    double cesium:georeferenceOrigin:latitude = 45.5019
+    double cesium:georeferenceOrigin:longitude = -73.5674
+}
+
+def "CesiumServers"
+{
+    def CesiumIonServerPrim "IonOfficial"
+    {
+        string cesium:displayName = "ion.cesium.com"
+        string cesium:ionServerApiUrl = "https://api.cesium.com/"
+        int64 cesium:ionServerApplicationId = 413
+        string cesium:ionServerUrl = "https://ion.cesium.com/"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZjE5ZGZlNS0yYTk3LTQ1YzItYjAxZC0wMzliNjM5ZDFiZDYiLCJpZCI6MjU5LCJpYXQiOjE3MTQ0NzQ2Njh9.PrHH7G2_m2awRfxMsAizhZ1-UMimFvNXsc8v8KbG4X8"
+    }
+}
+
+def CesiumTilesetPrim "Cesium_Tileset" (
+    prepend apiSchemas = ["MaterialBindingAPI"]
+)
+{
+    prepend rel cesium:georeferenceBinding = </CesiumGeoreference>
+    int64 cesium:ionAssetId = 28945
+    prepend rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
+    float cesium:pointSize = 1
+    uniform token cesium:sourceType = "ion"
+    float3[] extent = [(-3318591.2, -48736.32, -2286919), (795654.06, 44207.96, 1211130)]
+    rel material:binding = </World/Looks/Material> (
+        bindMaterialAs = "weakerThanDescendants"
+    )
+    token visibility = "inherited"
+}
+
