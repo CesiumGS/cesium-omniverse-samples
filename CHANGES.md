@@ -1,6 +1,11 @@
+### v0.22.0 - 2024-09-03
+
+- Added Cesium Moon Terrain sample.
+- Updates for Cesium for Omniverse v0.22.0.
+
 ### v0.21.0 - 2024-06-03
 
-- Added Montreal Point Cloud Classification sample. 
+- Added Montreal Point Cloud Classification sample.
 - Updates for Cesium for Omniverse v0.21.0.
 
 ### v0.20.0 - 2024-05-01
