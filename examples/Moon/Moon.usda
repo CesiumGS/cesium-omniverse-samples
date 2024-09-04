@@ -8,7 +8,7 @@
             }
             dictionary Perspective = {
                 double3 position = (1245403.5628459668, 1753107.153862783, 4235315.2632488)
-                double3 target = (-465620.2164122993, 1146287.4605231374, -79521.42223954853)
+                double3 target = (-465620.21641229955, 1146287.4605231383, -79521.42223954946)
             }
             dictionary Right = {
                 double3 position = (-50000, 0, 0)
@@ -18,13 +18,13 @@
                 double3 position = (0, 50000, 0)
                 double radius = 500
             }
-            string boundCamera = "/OmniverseKit_Persp"
+            string boundCamera = "/World/Camera"
         }
         dictionary navmeshSettings = {
             double agentHeight = 180
             double agentRadius = 20
             bool excludeRigidBodies = 1
-            int ver = 1
+            uint64 ver = 1
             double voxelCeiling = 460
         }
         dictionary omni_layer = {
@@ -79,6 +79,33 @@
 
 def Xform "World"
 {
+    def Camera "Camera" (
+        hide_in_stage_window = false
+        no_delete = false
+    )
+    {
+        float4[] clippingPlanes = []
+        float2 clippingRange = (1, 10000000000)
+        float exposure = 0
+        float focalLength = 18.147562
+        float focusDistance = 400
+        float fStop = 0
+        float horizontalAperture = 20.955
+        float horizontalApertureOffset = 0
+        custom vector3d omni:kit:centerOfInterest = (-5.820766091346741e-11, -2.3283064365386963e-10, -4681201.569666505)
+        token projection = "perspective"
+        uniform token purpose = "default"
+        double shutter:close = 0
+        double shutter:open = 0
+        uniform token stereoRole = "mono"
+        float verticalAperture = 15.2908
+        float verticalApertureOffset = 0
+        token visibility = "inherited"
+        float3 xformOp:rotateYXZ = (-6.9209948, 21.797386, 2.7589738)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (1245403.5628459668, 1753107.153862783, 4235315.2632488)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
 }
 
 def Xform "Environment"
@@ -131,7 +158,7 @@ def "CesiumServers"
         string cesium:ionServerApiUrl = "https://api.cesium.com/"
         int64 cesium:ionServerApplicationId = 413
         string cesium:ionServerUrl = "https://ion.cesium.com/"
-        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0Y2ZjNzY3NC04MWIyLTQyN2ItODg3Zi0zYzk3MmQxZWYxMmIiLCJpZCI6MjU5LCJpYXQiOjE3MTE5NzkyNzl9.GuvRiyuJO14zjA5_mIwgocOShmF4EUj2xbmikcCeXxs"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyNmQ3MzE5ZS0xOGIyLTQ2MWItYmYyOS1kZTQ4MzkyZGMxY2UiLCJpZCI6MjU5LCJpYXQiOjE3MjU0MTg4Mzh9.xCtqHsRWqUGoP94A5RYw53hniS9hflA5qy9whWWq1RU"
         string cesium:projectDefaultIonAccessTokenId = ""
     }
 }
