@@ -1,3 +1,7 @@
+### v0.23.0 - 2024-10-01
+
+- Updates for Cesium for Omniverse v0.23.0.
+
 ### v0.22.0 - 2024-09-03
 
 - Added Cesium Moon Terrain sample.
