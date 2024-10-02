@@ -353,7 +353,6 @@ def CesiumTilesetPrim "Cesium_World_Terrain"
     int64 cesium:ionAssetId = 1
     prepend rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     rel cesium:rasterOverlayBinding = [
-        </Cesium_World_Terrain/Bing_Maps_Aerial_imagery>,
         </Cesium_World_Terrain/web_map_tile_service_raster_overlay>,
         </Cesium_World_Terrain/web_map_service_raster_overlay>,
     ]
