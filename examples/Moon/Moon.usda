@@ -170,6 +170,7 @@ def CesiumTilesetPrim "Cesium_Tileset"
     int64 cesium:ionAssetId = 2684829
     prepend rel cesium:ionServerBinding = </CesiumServers/IonOfficial>
     uniform token cesium:sourceType = "ion"
+    bool cesium:smoothNormals = 1
     float3[] extent = [(-214810290, -450634980, -271685060), (214810290, 103134980, 271685060)]
 }
 
