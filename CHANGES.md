@@ -1,3 +1,7 @@
+### v0.25.0 - 2025-05-01
+
+- Updates for Cesium for Omniverse v0.25.0.
+
 ### v0.24.0 - 2024-11-01
 
 - Use smooth normals for Cesium Moon Terrain sample.
