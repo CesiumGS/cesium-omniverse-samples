@@ -788,21 +788,6 @@ def Xform "World"
             }
         }
     }
-
-    def Cube "TempMaterialPlaceholder" (
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        float3[] extent = [(-50, -50, -50), (50, 50, 50)]
-        rel material:binding = </World/Looks/Material> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double size = 100
-        double3 xformOp:rotateXYZ = (0, 0, 0)
-        double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
-    }
 }
 
 def Xform "Environment"
