@@ -357,7 +357,7 @@ def "CesiumServers"
         string cesium:ionServerApiUrl = "https://api.cesium.com/"
         int64 cesium:ionServerApplicationId = 413
         string cesium:ionServerUrl = "https://ion.cesium.com/"
-        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NjdmZjdmNy1jNGFjLTQ1M2MtOWU3OC0zNGExMDc1MjkyMWEiLCJpZCI6MjU5LCJzdWIiOiJDZXNpdW1KUyIsImlzcyI6Imh0dHBzOi8vYXBpLmNlc2l1bS5jb20iLCJhdWQiOiJDZXNpdW0gZm9yIE9tbml2ZXJzZSBTYW1wbGVzIHYwLjI5LjAgLSBEZWxldGUgb24gQXVndXN0IDNyZCwgMjAyNiIsImlhdCI6MTc4Mjg2NTQyN30.SUD5wVRaXrSCgzqwgygniRY5ZDhFhv5mAigqaaHK91M"
+        string cesium:projectDefaultIonAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6InhVZ2VzZFBscXdBbDhqVm4iLCJqdGkiOiJmYzFiMGRmOC1lNjY2LTRjZmUtYmMyMy02MmY5ZDc0YjAyNWYiLCJpZCI6MjU5LCJzdWIiOiJDZXNpdW1KUyIsImlzcyI6Imh0dHBzOi8vYXBpLmNlc2l1bS5jb20iLCJhdWQiOiJDZXNpdW0gZm9yIE9tbml2ZXJzZSBTYW1wbGVzIHYwLjMwLjAgLSBEZWxldGUgb24gSmFudWFyeSA0dGgsIDIwMjYiLCJpYXQiOjE3OTM2MzM0MTl9.D1OACcJTyTSqVxzS6pW0Uuguh-VKF_-ThMlTqSv3Q_w"
         string cesium:projectDefaultIonAccessTokenId = ""
     }
 }
